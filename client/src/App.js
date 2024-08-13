@@ -5,6 +5,8 @@ import Recipe from './pages/recipe';
 import UserProfile from './pages/UserProfile';
 import AllRecipes from './pages/AllRecipes';
 import MyAccount from './pages/MyAccount';
+import About from './pages/About';
+import Soon from './pages/Soon';
 // import { Toaster } from 'react-hot-toast';
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
         <Route path="/view-user/profile" element={<UserProfile />} />
         <Route path="/all-recipes" element={<AllRecipes />} />
         <Route path="/my-account" element={<MyAccount />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/coming-soon' element={<Soon />} />
       </Routes>
     </Router>
   );

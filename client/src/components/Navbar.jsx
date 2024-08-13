@@ -46,22 +46,23 @@ const Navbar = () => {
           Home
         </Link>
         <Link
-          to="/about"
-          className="font-semibold hover:text-primary transition-colors"
-        >
-          About Us
-        </Link>
-        <Link
           to="/all-recipes?page=1"
           className="font-semibold hover:text-primary transition-colors"
         >
           All Recipes
         </Link>
         <Link
-          to="#ingredients"
+          to="/about"
           className="font-semibold hover:text-primary transition-colors"
         >
-          Ingredients
+          About Us
+        </Link>
+
+        <Link
+          to="/coming-soon"
+          className="font-semibold hover:text-primary transition-colors"
+        >
+          Soon
         </Link>
       </div>
       <div className="action-links flex items-center space-x-4">
