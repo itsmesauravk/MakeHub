@@ -5,6 +5,7 @@ import TopRecipes from "../components/recipe/TopRecipes"
 import Transition from "../components/Transition"
 import PopularRecipe from "../components/PopularRecipe"
 import popularRecipesData from "../data/recipes.json"
+import MostLiked from "../components/MostLiked"
 
 const Homepage = () => {
   const [data, setData] = useState([])
@@ -62,6 +63,9 @@ const Homepage = () => {
 
         {/* Popular Recipes */}
         <PopularRecipe />
+
+        {/* most liked  */}
+        <MostLiked />
       </div>
 
       <Footer />

@@ -6,7 +6,7 @@ import Transition from "../Transition"
 import { Link } from "react-router-dom"
 
 const RecipeCard = ({ recipeDetails }) => {
-  console.log(recipeDetails)
+  // console.log(recipeDetails)
   return (
     <Transition key={recipeDetails.id}>
       <Link to={`/recipe/${recipeDetails.slug}`}>

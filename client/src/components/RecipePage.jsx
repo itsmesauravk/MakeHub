@@ -8,8 +8,17 @@ import { FaRegBookmark } from "react-icons/fa6"
 import { MdOutlineDescription } from "react-icons/md"
 import { Link } from "react-router-dom"
 import toast from "react-hot-toast"
+import IconButton from "@mui/material/IconButton"
+import Tooltip from "@mui/material/Tooltip"
+
+import Rating from "@mui/material/Rating"
+import Box from "@mui/material/Box"
+import StarIcon from "@mui/icons-material/Star"
 
 const RecipePage = ({ recipe, user }) => {
+  const [value, setValue] = React.useState(2)
+  const [hover, setHover] = React.useState(-1)
+
   const averageRating =
     recipe.rating.length > 0
       ? recipe.rating.reduce((acc, r) => acc + r.rating, 0) /
@@ -18,6 +27,23 @@ const RecipePage = ({ recipe, user }) => {
 
   if (!recipe || !user) {
     return <div className="text-center p-4">Loading...</div>
+  }
+
+  const labels = {
+    0.5: "Useless",
+    1: "Useless+",
+    1.5: "Poor",
+    2: "Poor+",
+    2.5: "Ok",
+    3: "Ok+",
+    3.5: "Good",
+    4: "Good+",
+    4.5: "Excellent",
+    5: "Excellent+",
+  }
+
+  function getLabelText(value) {
+    return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`
   }
 
   return (
@@ -85,22 +111,25 @@ const RecipePage = ({ recipe, user }) => {
             </h1>
             {/* action buttons  */}
             <div className="flex gap-2">
-              <button
-                className=""
-                onClick={() => {
-                  toast.success("Liked")
-                }}
-              >
-                <FaRegHeart className="w-9 h-9 text-secondary " />
-              </button>
-              <button
-                className=""
-                onClick={() => {
-                  toast.success("Added To Bookmark")
-                }}
-              >
-                <FaRegBookmark className="w-9 h-9 text-secondary " />
-              </button>
+              <Tooltip title="Like">
+                <IconButton
+                  onClick={() => {
+                    toast.success("Liked")
+                  }}
+                >
+                  <FaRegHeart className="w-9 h-9 text-secondary " />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="Bookmark">
+                <IconButton
+                  onClick={() => {
+                    toast.success("Added To Bookmark")
+                  }}
+                >
+                  <FaRegBookmark className="w-9 h-9 text-secondary " />
+                </IconButton>
+              </Tooltip>
             </div>
           </div>
           <p className="text-lg text-gray-700 mb-4">{recipe.summary}</p>
@@ -196,7 +225,53 @@ const RecipePage = ({ recipe, user }) => {
           </ol>
         </div>
 
-        <div className="mt-6">
+        {/* review part   */}
+        <div className="mb-6 shadow-lg p-5">
+          <h2 className="text-xl font-medium text-primary mb-4">
+            Give Your Review
+          </h2>
+          <div>
+            <Box
+              sx={{
+                width: 200,
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Rating
+                name="hover-feedback"
+                value={value}
+                precision={0.5}
+                getLabelText={getLabelText}
+                onChange={(event, newValue) => {
+                  setValue(newValue)
+                }}
+                onChangeActive={(event, newHover) => {
+                  setHover(newHover)
+                }}
+                emptyIcon={
+                  <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+                }
+              />
+              {value !== null && (
+                <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
+              )}
+            </Box>
+            <button
+              className="bg-primary text-white px-3 py-1 rounded mt-2 hover:bg-primary-dark transition-colors"
+              onClick={() => {
+                toast.success("Review added successfully.")
+              }}
+            >
+              Add Review
+            </button>
+          </div>
+
+          <div className="flex items-center gap-4 mb-4"></div>
+        </div>
+
+        {/* comment part  */}
+        <div className="mt-6 shadow-lg p-5">
           <h2 className="text-xl font-medium text-primary mb-4">Comments</h2>
           <div className="flex items-start gap-3 mb-4">
             <img
