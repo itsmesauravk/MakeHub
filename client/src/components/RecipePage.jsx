@@ -154,7 +154,7 @@ const RecipePage = ({ recipe, user }) => {
             </div>
             <div className="flex items-center">
               <TfiCommentAlt className="text-primary mr-1" />
-              <span>{recipe.comments.length}</span>
+              <span>{recipe.rating.length}</span>
             </div>
           </div>
           <div className="mb-6">
@@ -257,22 +257,10 @@ const RecipePage = ({ recipe, user }) => {
                 <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
               )}
             </Box>
-            <button
-              className="bg-primary text-white px-3 py-1 rounded mt-2 hover:bg-primary-dark transition-colors"
-              onClick={() => {
-                toast.success("Review added successfully.")
-              }}
-            >
-              Add Review
-            </button>
           </div>
 
           <div className="flex items-center gap-4 mb-4"></div>
-        </div>
 
-        {/* comment part  */}
-        <div className="mt-6 shadow-lg p-5">
-          <h2 className="text-xl font-medium text-primary mb-4">Comments</h2>
           <div className="flex items-start gap-3 mb-4">
             <img
               src={user.profileImage}
@@ -290,18 +278,21 @@ const RecipePage = ({ recipe, user }) => {
                   toast.success("Comment added successfully.")
                 }}
               >
-                Add Comment
+                Add Review
               </button>
             </div>
           </div>
+          <h2 className="text-xl font-medium text-primary mb-4">
+            Comments ({recipe.rating.length})
+          </h2>
 
           <div className="space-y-3">
-            {recipe.comments.map((comment, index) => (
+            {recipe.rating.map((data, index) => (
               <div
                 key={index}
                 className="p-3 border border-gray-200 rounded shadow-sm bg-white"
               >
-                <p className="text-gray-800">{comment.comment}</p>
+                <p className="text-gray-800">{data.comment}</p>
               </div>
             ))}
           </div>

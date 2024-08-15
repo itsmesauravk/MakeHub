@@ -21,7 +21,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setBgColor(window.scrollY > 100 ? "#FBFBFB" : "transparent")
+      setBgColor(window.scrollY > 20 ? "#FBFBFB" : "transparent")
     }
 
     window.addEventListener("scroll", handleScroll)

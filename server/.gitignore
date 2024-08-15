@@ -1,0 +1,83 @@
+# Python-specific ignores
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+
+# Django-specific ignores
+*.log
+*.pot
+*.py[cod]
+*.sqlite3
+*.sqlite
+*.db
+*.mo
+*.env
+*.venv/
+local_settings.py
+db.sqlite3
+*.sublime-project
+*.sublime-workspace
+
+# Ignore virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Ignore PyCharm project files
+.idea/
+
+# Ignore VS Code workspace files
+.vscode/
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore node_modules (if using npm/yarn)
+node_modules/
+
+# Ignore static files (if they are generated)
+staticfiles/
+static/
+media/
+
+# Ignore local environment files
+.env
+*.env
+django.env/
+
+# Ignore migrations
+**/migrations/*
+!**/migrations/__init__.py
+
+# Ignore coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Ignore profiler results
+*.prof
+
+# Ignore mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Ignore Celery task queue results
+celerybeat-schedule
+celerybeat.pid
+
+# Ignore secret keys and settings
+secret_key.txt
+
+# Ignore Docker files
+docker-compose.override.yml

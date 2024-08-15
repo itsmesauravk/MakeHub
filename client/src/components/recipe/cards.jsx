@@ -56,7 +56,7 @@ const RecipeCard = ({ recipeDetails }) => {
             </p>
             <p className="flex items-center text-gray-600 font-bold">
               <TfiCommentAlt className="mr-1 text-primary" />
-              {recipeDetails.comments.length}
+              {recipeDetails.rating.length}
             </p>
           </div>
         </div>

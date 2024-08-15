@@ -29,22 +29,14 @@
     "views": 250,
     "rating": [
       {
-        "userId": 1,
-        "rating": 4
+        "userId": 2,
+        "rating": 5,
+        "comment": "Delicious and easy to make!"
       },
       {
-        "userId": 2,
-        "rating": 5
-      }
-    ],
-    "comments": [
-      {
-        "userId": 1,
-        "comment": "Delicious!"
-      },
-      {
-        "userId": 2,
-        "comment": "Can't wait to try this!"
+        "userId": 3,
+        "rating": 4,
+        "comment": "Perfect burger recipe."
       }
     ]
   },
@@ -71,22 +63,14 @@
     "views": 150,
     "rating": [
       {
-        "userId": 3,
-        "rating": 5
+        "userId": 2,
+        "rating": 5,
+        "comment": "Delicious and easy to make!"
       },
       {
-        "userId": 4,
-        "rating": 4
-      }
-    ],
-    "comments": [
-      {
         "userId": 3,
-        "comment": "Perfectly crispy!"
-      },
-      {
-        "userId": 4,
-        "comment": "A classic side dish!"
+        "rating": 4,
+        "comment": "Perfect burger recipe."
       }
     ]
   },
@@ -120,22 +104,14 @@
     "views": 300,
     "rating": [
       {
-        "userId": 5,
-        "rating": 4
+        "userId": 2,
+        "rating": 5,
+        "comment": "Delicious and easy to make!"
       },
       {
-        "userId": 6,
-        "rating": 5
-      }
-    ],
-    "comments": [
-      {
-        "userId": 5,
-        "comment": "So flavorful!"
-      },
-      {
-        "userId": 6,
-        "comment": "Great recipe!"
+        "userId": 3,
+        "rating": 4,
+        "comment": "Perfect burger recipe."
       }
     ]
   },
@@ -168,22 +144,14 @@
     "views": 700,
     "rating": [
       {
-        "userId": 1,
-        "rating": 4
+        "userId": 2,
+        "rating": 5,
+        "comment": "Delicious and easy to make!"
       },
       {
         "userId": 3,
-        "rating": 3
-      }
-    ],
-    "comments": [
-      {
-        "userId": 2,
-        "comment": "Light and refreshing!"
-      },
-      {
-        "userId": 6,
-        "comment": "Great as a side dish."
+        "rating": 4,
+        "comment": "Perfect burger recipe."
       }
     ]
   },
@@ -222,22 +190,14 @@
     "views": 2200,
     "rating": [
       {
-        "userId": 1,
-        "rating": 5
+        "userId": 2,
+        "rating": 5,
+        "comment": "Delicious and easy to make!"
       },
       {
         "userId": 3,
-        "rating": 5
-      }
-    ],
-    "comments": [
-      {
-        "userId": 4,
-        "comment": "The best cookies I've ever had!"
-      },
-      {
-        "userId": 6,
-        "comment": "Perfect for a sweet treat."
+        "rating": 4,
+        "comment": "Perfect burger recipe."
       }
     ]
   },
@@ -273,22 +233,14 @@
     "views": 1400,
     "rating": [
       {
-        "userId": 1,
-        "rating": 5
-      },
-      {
         "userId": 2,
-        "rating": 4
-      }
-    ],
-    "comments": [
+        "rating": 5,
+        "comment": "Delicious and easy to make!"
+      },
       {
         "userId": 3,
-        "comment": "Simple and delicious!"
-      },
-      {
-        "userId": 5,
-        "comment": "A must-try for pizza lovers."
+        "rating": 4,
+        "comment": "Perfect burger recipe."
       }
     ]
   },
@@ -325,21 +277,13 @@
     "rating": [
       {
         "userId": 2,
-        "rating": 5
+        "rating": 5,
+        "comment": "Delicious and easy to make!"
       },
-      {
-        "userId": 6,
-        "rating": 4
-      }
-    ],
-    "comments": [
       {
         "userId": 3,
-        "comment": "Rich and satisfying!"
-      },
-      {
-        "userId": 5,
-        "comment": "A family favorite."
+        "rating": 4,
+        "comment": "Perfect burger recipe."
       }
     ]
   },
@@ -374,22 +318,14 @@
     "views": 950,
     "rating": [
       {
-        "userId": 4,
-        "rating": 4
+        "userId": 2,
+        "rating": 5,
+        "comment": "Delicious and easy to make!"
       },
       {
-        "userId": 5,
-        "rating": 3
-      }
-    ],
-    "comments": [
-      {
-        "userId": 6,
-        "comment": "Perfect weekend breakfast!"
-      },
-      {
-        "userId": 1,
-        "comment": "So easy and delicious."
+        "userId": 3,
+        "rating": 4,
+        "comment": "Perfect burger recipe."
       }
     ]
   },
@@ -424,22 +360,14 @@
     "views": 1100,
     "rating": [
       {
-        "userId": 1,
-        "rating": 4
-      },
-      {
         "userId": 2,
-        "rating": 5
-      }
-    ],
-    "comments": [
-      {
-        "userId": 4,
-        "comment": "Quick and flavorful!"
+        "rating": 5,
+        "comment": "Delicious and easy to make!"
       },
       {
-        "userId": 6,
-        "comment": "A family favorite."
+        "userId": 3,
+        "rating": 4,
+        "comment": "Perfect burger recipe."
       }
     ]
   },
@@ -475,22 +403,14 @@
     "saved": [5, 9],
     "rating": [
       {
+        "userId": 2,
+        "rating": 5,
+        "comment": "Delicious and easy to make!"
+      },
+      {
         "userId": 3,
-        "rating": 5
-      },
-      {
-        "userId": 5,
-        "rating": 4
-      }
-    ],
-    "comments": [
-      {
-        "userId": 6,
-        "comment": "Perfectly cooked and delicious!"
-      },
-      {
-        "userId": 1,
-        "comment": "Loved the lemon butter sauce."
+        "rating": 4,
+        "comment": "Perfect burger recipe."
       }
     ]
   },
@@ -526,20 +446,12 @@
     "rating": [
       {
         "userId": 2,
-        "rating": 5
-      },
-      {
-        "userId": 3,
-        "rating": 4
-      }
-    ],
-    "comments": [
-      {
-        "userId": 4,
+        "rating": 5,
         "comment": "Delicious and easy to make!"
       },
       {
-        "userId": 5,
+        "userId": 3,
+        "rating": 4,
         "comment": "Perfect burger recipe."
       }
     ]
@@ -574,22 +486,14 @@
     "views": 1500,
     "rating": [
       {
-        "userId": 1,
-        "rating": 5
+        "userId": 2,
+        "rating": 5,
+        "comment": "Delicious and easy to make!"
       },
-      {
-        "userId": 4,
-        "rating": 4
-      }
-    ],
-    "comments": [
       {
         "userId": 3,
-        "comment": "Rich and creamy, just like in Italy!"
-      },
-      {
-        "userId": 5,
-        "comment": "Quick and delicious."
+        "rating": 4,
+        "comment": "Perfect burger recipe."
       }
     ]
   },
@@ -626,21 +530,13 @@
     "rating": [
       {
         "userId": 2,
-        "rating": 5
+        "rating": 5,
+        "comment": "Delicious and easy to make!"
       },
       {
-        "userId": 5,
-        "rating": 4
-      }
-    ],
-    "comments": [
-      {
-        "userId": 6,
-        "comment": "The fluffiest pancakes ever!"
-      },
-      {
-        "userId": 1,
-        "comment": "Perfect breakfast recipe."
+        "userId": 3,
+        "rating": 4,
+        "comment": "Perfect burger recipe."
       }
     ]
   }
