@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import TopRecipes from "../components/recipe/TopRecipes"
@@ -6,9 +6,13 @@ import Transition from "../components/Transition"
 import PopularRecipe from "../components/PopularRecipe"
 import popularRecipesData from "../data/recipes.json"
 import MostLiked from "../components/MostLiked"
+import Login from "../components/Login"
+import { LoginContext } from "../components/LoginContext"
 
 const Homepage = () => {
   const [data, setData] = useState([])
+  const { openLogin } = useContext(LoginContext)
+  console.log(openLogin)
 
   useEffect(() => {
     const topThreeRecipes = popularRecipesData.slice(0, 3)
@@ -18,11 +22,12 @@ const Homepage = () => {
   return (
     <div>
       <Navbar />
+      {openLogin && <Login />}
 
       {/* Landing Image */}
       <div className="relative">
         <img
-          className="max-h-screen w-full object-cover"
+          className="max-h-screen w-full -z-10 object-cover"
           src="/images/landingImage.jpg"
           alt="Landing"
         />

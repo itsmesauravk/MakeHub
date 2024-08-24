@@ -1,23 +1,13 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import Logo from "./Logo"
 import { Link } from "react-router-dom"
 import Button from "@mui/material/Button"
-import Menu from "@mui/material/Menu"
-import MenuItem from "@mui/material/MenuItem"
+
+import { LoginContext } from "./LoginContext"
 
 const Navbar = () => {
   const [bgColor, setBgColor] = useState("transparent")
-  const [anchorEl, setAnchorEl] = useState(null)
-
-  const open = Boolean(anchorEl)
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
+  const { handleLogin } = useContext(LoginContext)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,45 +55,10 @@ const Navbar = () => {
           Soon
         </Link>
       </div>
-      <div className="action-links flex items-center space-x-4">
-        <Button
-          id="profile-button"
-          aria-controls={open ? "profile-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          onClick={handleClick}
-          sx={{
-            p: 0,
-            minWidth: "auto",
-            "& .MuiButton-startIcon": {
-              display: "none",
-            },
-          }}
-        >
-          <img
-            src="/images/burger.jpg"
-            alt="profile"
-            className="w-10 h-10 rounded-full object-cover"
-          />
-        </Button>
-        <Menu
-          id="profile-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "profile-button",
-          }}
-        >
-          <Link to="/my-account">
-            <MenuItem onClick={handleClose}>My Account</MenuItem>
-          </Link>
 
-          <MenuItem onClick={handleClose} className="text-red-700">
-            Logout
-          </MenuItem>
-        </Menu>
-      </div>
+      <Button variant="contained" color="primary" onClick={handleLogin}>
+        Login
+      </Button>
     </nav>
   )
 }
