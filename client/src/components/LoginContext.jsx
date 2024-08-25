@@ -14,7 +14,9 @@ const LoginProvider = ({ children }) => {
   }
 
   return (
-    <LoginContext.Provider value={{ openLogin, setOpenLogin, handleLogin }}>
+    <LoginContext.Provider
+      value={{ openLogin, setOpenLogin, handleLogin, handleLoginClose }}
+    >
       {children}
     </LoginContext.Provider>
   )

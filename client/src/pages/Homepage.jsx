@@ -22,10 +22,10 @@ const Homepage = () => {
   return (
     <div>
       <Navbar />
-      {openLogin && <Login />}
+      <div>{openLogin && <Login />}</div>
 
       {/* Landing Image */}
-      <div className="relative">
+      <div className="">
         <img
           className="max-h-screen w-full -z-10 object-cover"
           src="/images/landingImage.jpg"

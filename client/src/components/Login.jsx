@@ -1,12 +1,13 @@
-import React from "react"
+import React, { useContext } from "react"
 import Logo from "./Logo"
+import { Link } from "react-router-dom"
 
 import { LoginContext } from "./LoginContext"
 
 const Login = () => {
-  // const { setOpenLogin } = React.useContext(LoginContext)
+  const { handleLoginClose } = useContext(LoginContext)
   return (
-    <div className="absolute z-9999 top-20 flex h-[80vh] ">
+    <div className="absolute z-9999 top-20 left-96 flex h-[80vh] ">
       {/* Left side */}
       <div className="flex flex-col justify-center items-center w-full md:w-1/2 bg-gray-100 p-8">
         <Logo />
@@ -50,6 +51,17 @@ const Login = () => {
             Log In
           </button>
         </form>
+
+        {/* for registration */}
+        <div className="mt-6">
+          <p className="text-sm text-gray-500">
+            Don't have an account?{" "}
+            <Link to={"/register"} className="text-primary cursor-pointer">
+              Register
+            </Link>
+          </p>
+        </div>
+
         <div className="my-6 flex items-center">
           <hr className="w-full border-gray-300" />
           <span className="mx-4 text-gray-500">OR</span>
@@ -80,7 +92,7 @@ const Login = () => {
       {/* Close button */}
       <button
         className="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-700"
-        // onClick={setOpenLogin(false)}
+        onClick={handleLoginClose}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
