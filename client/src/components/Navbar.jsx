@@ -7,7 +7,7 @@ import { LoginContext } from "./LoginContext"
 
 const Navbar = () => {
   const [bgColor, setBgColor] = useState("transparent")
-  const { handleLogin } = useContext(LoginContext)
+  // const { handleLogin } = useContext(LoginContext)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,9 +56,12 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <Button variant="contained" color="primary" onClick={handleLogin}>
-        Login
-      </Button>
+      <Link
+        to="/login"
+        className="text-primary font-semibold hover:underline hover:text-primary-dark transition duration-300 ease-in-out"
+      >
+        Log In
+      </Link>
     </nav>
   )
 }

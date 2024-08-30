@@ -7,6 +7,8 @@ import AllRecipes from './pages/AllRecipes';
 import MyAccount from './pages/MyAccount';
 import About from './pages/About';
 import Soon from './pages/Soon';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 // import { Toaster } from 'react-hot-toast';
 
 function App() {
@@ -20,6 +22,10 @@ function App() {
         <Route path="/my-account" element={<MyAccount />} />
         <Route path='/about' element={<About />} />
         <Route path='/coming-soon' element={<Soon />} />
+
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+
       </Routes>
     </Router>
   );

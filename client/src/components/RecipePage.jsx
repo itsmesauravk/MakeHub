@@ -15,6 +15,8 @@ import Rating from "@mui/material/Rating"
 import Box from "@mui/material/Box"
 import StarIcon from "@mui/icons-material/Star"
 
+// for login checking
+
 const RecipePage = ({ recipe, user }) => {
   const [value, setValue] = React.useState(2)
   const [hover, setHover] = React.useState(-1)

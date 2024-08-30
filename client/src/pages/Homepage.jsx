@@ -6,13 +6,9 @@ import Transition from "../components/Transition"
 import PopularRecipe from "../components/PopularRecipe"
 import popularRecipesData from "../data/recipes.json"
 import MostLiked from "../components/MostLiked"
-import Login from "../components/Login"
-import { LoginContext } from "../components/LoginContext"
 
 const Homepage = () => {
   const [data, setData] = useState([])
-  const { openLogin } = useContext(LoginContext)
-  console.log(openLogin)
 
   useEffect(() => {
     const topThreeRecipes = popularRecipesData.slice(0, 3)
@@ -22,7 +18,6 @@ const Homepage = () => {
   return (
     <div>
       <Navbar />
-      <div>{openLogin && <Login />}</div>
 
       {/* Landing Image */}
       <div className="">
