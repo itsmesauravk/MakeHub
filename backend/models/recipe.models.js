@@ -14,14 +14,18 @@ const recipeSchema = new mongoose.Schema({
     summary:{
         type: String,
         required: true,
-        minlength: 10
+       
     },
     description:{
         type: String,
         required: true,
-        minlength: 10
+     
     },
     image:{
+        type: String,
+        default: ''
+    },
+    imageId:{
         type: String,
         default: ''
     },
@@ -29,21 +33,25 @@ const recipeSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    ingredients:[{
+    type:{
         type: String,
         required: true
-    }],
-    method:[{
+    },
+    ingredients:{
         type: String,
         required: true
-    }],
-    categories:[{
+    },
+    method:{
         type: String,
         required: true
-    }],
+    },
+    categories:{
+        type: String,
+        required: true
+    },
     likes:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'user',
     }],
     saved:[{
         type: mongoose.Schema.Types.ObjectId,

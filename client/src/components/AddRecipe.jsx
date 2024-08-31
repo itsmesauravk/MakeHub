@@ -29,35 +29,55 @@ const AddRecipePage = ({ isOpen, onClose }) => {
   const categories = ["Lunch", "Dinner", "Meal", "Breakfast"]
 
   const handleInputChange = (e) => {
-    setNewRecipe({ ...newRecipe, [e.target.name]: e.target.value })
+    const { name, value } = e.target
+    setNewRecipe((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
   }
 
   const handleIngredientChange = (index, value) => {
     const newIngredients = [...newRecipe.ingredients]
     newIngredients[index] = value
-    setNewRecipe({ ...newRecipe, ingredients: newIngredients })
+    setNewRecipe((prev) => ({
+      ...prev,
+      ingredients: newIngredients,
+    }))
   }
 
   const handleAddIngredient = () => {
-    setNewRecipe({ ...newRecipe, ingredients: [...newRecipe.ingredients, ""] })
+    setNewRecipe((prev) => ({
+      ...prev,
+      ingredients: [...prev.ingredients, ""],
+    }))
   }
 
   const handleMethodStepChange = (index, value) => {
     const newMethod = [...newRecipe.method]
     newMethod[index] = value
-    setNewRecipe({ ...newRecipe, method: newMethod })
+    setNewRecipe((prev) => ({
+      ...prev,
+      method: newMethod,
+    }))
   }
 
   const handleAddMethodStep = () => {
-    setNewRecipe({ ...newRecipe, method: [...newRecipe.method, ""] })
+    setNewRecipe((prev) => ({
+      ...prev,
+      method: [...prev.method, ""],
+    }))
   }
 
   const handleCategoryChange = (e) => {
-    setNewRecipe({ ...newRecipe, categories: e.target.value })
+    const { value } = e.target
+    setNewRecipe((prev) => ({
+      ...prev,
+      categories: value,
+    }))
   }
 
   const handleSubmit = () => {
-    console.log(newRecipe)
+    console.log(JSON.stringify(newRecipe, null, 2))
   }
 
   if (!isOpen) return null
@@ -225,7 +245,7 @@ const AddRecipePage = ({ isOpen, onClose }) => {
               },
             }}
           >
-            Submit
+            Create
           </Button>
         </DialogActions>
       </div>

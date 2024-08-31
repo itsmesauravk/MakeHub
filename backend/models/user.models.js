@@ -5,7 +5,18 @@ const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
-        minlength: 3
+        minlength: 3,
+        unique:true
+    },
+    slug:{
+        type: String,
+        minlength: 3,
+        unique:true
+    },
+    fullname:{
+        type: String,
+        required: true,
+        minlength: 3,
     },
     email: {
         type: String,
@@ -25,7 +36,7 @@ const userSchema = new mongoose.Schema({
     },
     profilePicture: {
         type: String,
-        default: null
+        default: ""
     },
     recipesPosted: [{
         type: mongoose.Schema.Types.ObjectId,

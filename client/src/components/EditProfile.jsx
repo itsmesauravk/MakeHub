@@ -1,7 +1,33 @@
-import React from "react"
+import React, { useState } from "react"
 import { MdClose } from "react-icons/md"
 
 const EditProfile = ({ isOpen, onClose }) => {
+  const [username, setUsername] = useState("")
+  const [bio, setBio] = useState("")
+  const [currentPassword, setCurrentPassword] = useState("")
+  const [newPassword, setNewPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    // Validation and submission logic
+    if (newPassword !== confirmPassword) {
+      alert("New password and confirmation password do not match!")
+      return
+    }
+
+    const updatedProfile = {
+      username,
+      bio,
+      currentPassword,
+      newPassword,
+    }
+
+    console.log("Updated Profile Data: ", updatedProfile)
+    // Call API to update profile or handle data as needed
+  }
+
   if (!isOpen) return null
 
   return (
@@ -19,7 +45,7 @@ const EditProfile = ({ isOpen, onClose }) => {
             <MdClose className="w-10 h-10" />
           </button>
         </div>
-        <div className="mt-4">
+        <form onSubmit={handleSubmit} className="mt-4">
           <div>
             <h3 className="text-lg font-semibold">General</h3>
             <div className="mt-2">
@@ -28,6 +54,8 @@ const EditProfile = ({ isOpen, onClose }) => {
               </label>
               <input
                 type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 placeholder="Enter your new username"
               />
@@ -37,11 +65,16 @@ const EditProfile = ({ isOpen, onClose }) => {
                 Bio
               </label>
               <textarea
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
                 className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 placeholder="Enter your new bio"
               />
             </div>
-            <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 mt-4 rounded-lg transition-all">
+            <button
+              type="submit"
+              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 mt-4 rounded-lg transition-all"
+            >
               Update
             </button>
           </div>
@@ -54,6 +87,8 @@ const EditProfile = ({ isOpen, onClose }) => {
               </label>
               <input
                 type="password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
                 className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 placeholder="Enter current password"
               />
@@ -64,6 +99,8 @@ const EditProfile = ({ isOpen, onClose }) => {
               </label>
               <input
                 type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
                 className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 placeholder="Enter new password"
               />
@@ -74,11 +111,16 @@ const EditProfile = ({ isOpen, onClose }) => {
               </label>
               <input
                 type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 placeholder="Confirm new password"
               />
             </div>
-            <button className="bg-green-700 hover:bg-green-800 text-white px-4 py-2 mt-4 rounded-lg transition-all">
+            <button
+              type="submit"
+              className="bg-green-700 hover:bg-green-800 text-white px-4 py-2 mt-4 rounded-lg transition-all"
+            >
               Change Password
             </button>
           </div>
@@ -89,11 +131,15 @@ const EditProfile = ({ isOpen, onClose }) => {
               Deleting your account is irreversible. Please proceed with
               caution.
             </p>
-            <button className="bg-red-800 hover:bg-red-900 text-white px-4 py-2 mt-4 rounded-lg transition-all">
+            <button
+              type="button"
+              onClick={() => alert("Account deletion process initiated")}
+              className="bg-red-800 hover:bg-red-900 text-white px-4 py-2 mt-4 rounded-lg transition-all"
+            >
               Delete Account
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   )

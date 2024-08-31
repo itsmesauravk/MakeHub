@@ -34,7 +34,7 @@ const About = () => {
               heat, and let's make something amazing together!
             </p>
             <p>
-              Journey Started on the founder
+              Journey Started as the founder
               <span className="font-bold text-secondary ">
                 {" "}
                 2024 August 10.

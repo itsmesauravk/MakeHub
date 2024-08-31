@@ -6,7 +6,9 @@ import Transition from "../Transition"
 import { Link } from "react-router-dom"
 
 const RecipeCard = ({ recipeDetails }) => {
-  // console.log(recipeDetails)
+  console.log(recipeDetails)
+  const recipeCategories = JSON.parse(recipeDetails?.categories)
+
   return (
     <Transition key={recipeDetails.id}>
       <Link to={`/recipe/${recipeDetails.slug}`}>
@@ -14,27 +16,27 @@ const RecipeCard = ({ recipeDetails }) => {
           className={`bg-white shadow-lg rounded-lg overflow-hidden w-80 mx-auto cursor-pointer hover:shadow-2xl transition-shadow duration-500`}
         >
           <img
-            src={recipeDetails.image}
+            src={recipeDetails?.image}
             alt="recipe-image"
             className="w-full h-48 object-cover hover:scale-105 transition-transform duration-500"
           />
           <div className="p-4">
             <h2 className="text-2xl font-bold text-primary mb-2">
-              {recipeDetails.title}
+              {recipeDetails?.title}
             </h2>
 
             <div className="mb-4">
               <p
                 className={`text-m ${
-                  recipeDetails.type.toLowerCase() === "vegetarian"
+                  recipeDetails?.type.toLowerCase() === "vegetarian"
                     ? "text-green-600"
                     : "text-orange-600"
                 } font-semibold`}
               >
-                {recipeDetails.type}
+                {recipeDetails?.type}
               </p>
               <p className="mt-2 text-sm text-gray-500 font-semibold">
-                {recipeDetails.categories.map((category, index) => (
+                {recipeCategories.map((category, index) => (
                   <span
                     key={index}
                     className="text-black bg-purple-200 px-2 py-1 rounded-full text-xs mr-1"
@@ -48,15 +50,15 @@ const RecipeCard = ({ recipeDetails }) => {
           <div className="flex justify-around items-center bg-gray-100 py-2">
             <p className="flex items-center text-gray-600 font-bold">
               <FaEye className="mr-1 text-primary" />
-              {recipeDetails.views}
+              {recipeDetails?.views > 0 ? recipeDetails?.views : 0}
             </p>
             <p className="flex items-center text-gray-600 font-bold">
               <FaRegHeart className="mr-1 text-primary" />
-              {recipeDetails.likes.length}
+              {recipeDetails?.likes ? recipeDetails?.likes.length : 0}
             </p>
             <p className="flex items-center text-gray-600 font-bold">
               <TfiCommentAlt className="mr-1 text-primary" />
-              {recipeDetails.rating.length}
+              {recipeDetails?.rating ? recipeDetails?.rating.length : 0}
             </p>
           </div>
         </div>

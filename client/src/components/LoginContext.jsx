@@ -1,21 +1,57 @@
-import { createContext, useState } from "react"
+import { createContext, useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 export const LoginContext = createContext()
 
 const LoginProvider = ({ children }) => {
-  const [openLogin, setOpenLogin] = useState(false)
-  const handleLogin = () => {
-    console.log("Login")
-    setOpenLogin(true)
-  }
-  const handleLoginClose = () => {
-    console.log("Login")
-    setOpenLogin(false)
-  }
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userBasicInfo, setUserBasicInfo] = useState({})
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const token = localStorage.getItem("token")
+        if (!token) {
+          setIsLoggedIn(false)
+
+          return
+        }
+        // Fetch user info from server
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL}/user-info`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        const data = await response.json()
+        if (data.success) {
+          setUserBasicInfo(data.user)
+        } else {
+          setIsLoggedIn(false)
+        }
+      } catch (error) {
+        console.error("Error fetching user info", error)
+        // Handle error (e.g., log out user, notify them, etc.)
+      }
+    }
+
+    const checkLoggedIn = () => {
+      const token = localStorage.getItem("token")
+      if (token) {
+        setIsLoggedIn(true)
+        fetchUserInfo()
+      }
+    }
+
+    checkLoggedIn()
+  }, [])
 
   return (
     <LoginContext.Provider
-      value={{ openLogin, setOpenLogin, handleLogin, handleLoginClose }}
+      value={{ isLoggedIn, setIsLoggedIn, userBasicInfo, setUserBasicInfo }}
     >
       {children}
     </LoginContext.Provider>
