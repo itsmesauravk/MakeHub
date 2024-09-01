@@ -4,15 +4,32 @@ import Footer from "../components/Footer"
 import TopRecipes from "../components/recipe/TopRecipes"
 import Transition from "../components/Transition"
 import PopularRecipe from "../components/PopularRecipe"
-import popularRecipesData from "../data/recipes.json"
 import MostLiked from "../components/MostLiked"
 
 const Homepage = () => {
   const [data, setData] = useState([])
 
+  //this will change later
+  const getTopRecipes = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/recipe/all-recipes`
+      )
+      const data = await response.json()
+      if (data.success) {
+        setData(data.recipes.slice(2, 5))
+      } else {
+        console.log(data.message)
+      }
+    } catch (error) {
+      console.log("Error getting recipes", error)
+    }
+  }
+
   useEffect(() => {
-    const topThreeRecipes = popularRecipesData.slice(0, 3)
-    setData(topThreeRecipes)
+    // const topThreeRecipes = popularRecipesData.slice(0, 3)
+    // setData(topThreeRecipes)
+    getTopRecipes()
   }, [])
 
   return (

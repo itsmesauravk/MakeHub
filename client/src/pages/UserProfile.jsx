@@ -20,6 +20,8 @@ const UserProfile = () => {
 
   const uid = getUid()
 
+  console.log(uid)
+
   const getUser = () => {
     const user = users.find((user) => user.id === parseInt(uid))
     setUserProfile(user)

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import { FaRegHeart, FaEye, FaStar, FaClipboardList } from "react-icons/fa"
 import { TfiCommentAlt } from "react-icons/tfi"
 import { IoIosList } from "react-icons/io"
@@ -15,17 +15,27 @@ import Rating from "@mui/material/Rating"
 import Box from "@mui/material/Box"
 import StarIcon from "@mui/icons-material/Star"
 
+import Avatar from "@mui/material/Avatar"
+import Stack from "@mui/material/Stack"
+import { LoginContext } from "./LoginContext"
+
 // for login checking
 
 const RecipePage = ({ recipe, user }) => {
   const [value, setValue] = React.useState(2)
   const [hover, setHover] = React.useState(-1)
 
-  const averageRating =
-    recipe.rating.length > 0
-      ? recipe.rating.reduce((acc, r) => acc + r.rating, 0) /
-        recipe.rating.length
-      : 0
+  //login user detail
+  const { userBasicInfo } = useContext(LoginContext)
+
+  // console.log(recipe)
+  // console.log(user)
+
+  // const averageRating =
+  //   recipe?.rating.length > 0
+  //     ? recipe.rating.reduce((acc, r) => acc + r.rating, 0) /
+  //       recipe.rating.length
+  //     : 0
 
   if (!recipe || !user) {
     return <div className="text-center p-4">Loading...</div>
@@ -47,6 +57,40 @@ const RecipePage = ({ recipe, user }) => {
   function getLabelText(value) {
     return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`
   }
+
+  //for avatar
+  function stringToColor(string) {
+    let hash = 0
+    let i
+
+    /* eslint-disable no-bitwise */
+    for (i = 0; i < string.length; i += 1) {
+      hash = string.charCodeAt(i) + ((hash << 5) - hash)
+    }
+
+    let color = "#"
+
+    for (i = 0; i < 3; i += 1) {
+      const value = (hash >> (i * 8)) & 0xff
+      color += `00${value.toString(16)}`.slice(-2)
+    }
+    /* eslint-enable no-bitwise */
+
+    return color
+  }
+
+  function stringAvatar(name) {
+    return {
+      sx: {
+        bgcolor: stringToColor(name),
+      },
+      children: `${name.split(" ")[0][0]}`,
+    }
+  }
+
+  const categories = JSON.parse(recipe?.categories)
+  const recipeIngredients = JSON.parse(recipe?.ingredients)
+  const recipeMethods = JSON.parse(recipe?.method)
 
   return (
     <div className="w-full px-4 py-6 max-w-full mx-auto bg-white">
@@ -136,7 +180,7 @@ const RecipePage = ({ recipe, user }) => {
           </div>
           <p className="text-lg text-gray-700 mb-4">{recipe.summary}</p>
           <div className="text-sm text-gray-600 mb-4 flex flex-wrap gap-2">
-            {recipe.categories.map((category, index) => (
+            {categories.map((category, index) => (
               <span
                 key={index}
                 className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full"
@@ -148,38 +192,48 @@ const RecipePage = ({ recipe, user }) => {
           <div className="flex gap-4 items-center mb-4 text-gray-700">
             <div className="flex items-center">
               <FaEye className="text-primary mr-1" />
-              <span>{recipe.views}</span>
+              <span>{recipe?.views}</span>
             </div>
             <div className="flex items-center">
               <FaRegHeart className="text-primary mr-1" />
-              <span>{recipe.likes.length}</span>
+              <span>{recipe?.likes.length}</span>
             </div>
             <div className="flex items-center">
               <TfiCommentAlt className="text-primary mr-1" />
-              <span>{recipe.rating.length}</span>
+              {/* <span>{recipe?.rating.length}</span> */}
             </div>
           </div>
           <div className="mb-6">
             <span className="flex gap-1 items-center text-lg font-semibold">
               <FaStar className="text-primary" />
-              {averageRating.toFixed(1)} ({recipe.rating.length} reviews)
+              {/* {averageRating.toFixed(1)} - ({recipe?.rating.length} reviews) */}
             </span>
           </div>
           {/* User Details */}
           <Link
-            to={`/view-user/profile?uid=${user.id}`}
-            className="flex items-center gap-4 mb-6 cursor-pointer hover:underline"
+            to={`/view-user/profile?uid=${user?._id}`}
+            className="flex items-center gap-4 mb-6 cursor-pointer "
           >
-            <img
-              src={user.profileImage}
-              alt={user.username}
-              className="w-16 h-16 object-cover rounded-full border border-gray-300"
-            />
-            <div>
-              <h2 className="text-lg font-semibold text-primary">
-                {user.username}
+            {user?.profilePicture ? (
+              <Avatar
+                alt="Profile Picture"
+                style={{ width: "35px", height: "35px", objectFit: "cover" }}
+                src={user?.profilePicture}
+              />
+            ) : (
+              <Stack direction="row" spacing={1}>
+                <Avatar
+                  style={{ width: "35px", height: "35px" }}
+                  {...stringAvatar(user?.username || "User")}
+                />
+              </Stack>
+            )}
+
+            <div className="hover:underline">
+              <h2 className="text-lg font-semibold text-primary ">
+                {user?.username}
               </h2>
-              <p className="text-gray-600">{user.email}</p>
+              <p className="text-gray-600">{user?.email}</p>
             </div>
           </Link>
         </div>
@@ -191,9 +245,9 @@ const RecipePage = ({ recipe, user }) => {
         <div className="mb-6">
           <h2 className="flex gap-2 items-center text-2xl font-semibold text-primary mb-3">
             <MdOutlineDescription className="text-primary" />
-            About {recipe.title}
+            About {recipe?.title}
           </h2>
-          <p className="text-lg text-gray-800">{recipe.description}</p>
+          <p className="text-lg text-gray-800">{recipe?.description}</p>
         </div>
 
         <div className="mb-6">
@@ -202,7 +256,7 @@ const RecipePage = ({ recipe, user }) => {
             Ingredients
           </h2>
           <ul className="list-disc list-inside space-y-2">
-            {recipe.ingredients.map((ingredient, index) => (
+            {recipeIngredients.map((ingredient, index) => (
               <li key={index} className="text-gray-700 flex items-center">
                 <TiTick className="text-primary mr-2" />
                 {ingredient}
@@ -217,7 +271,7 @@ const RecipePage = ({ recipe, user }) => {
             Method
           </h2>
           <ol className="list-decimal list-inside space-y-2">
-            {recipe.method.map((step, index) => (
+            {recipeMethods.map((step, index) => (
               <li key={index} className="text-gray-700 flex items-center">
                 <span className="mr-2">Step {index + 1}</span>
                 <FaArrowRightLong className="text-primary" />
@@ -264,11 +318,20 @@ const RecipePage = ({ recipe, user }) => {
           <div className="flex items-center gap-4 mb-4"></div>
 
           <div className="flex items-start gap-3 mb-4">
-            <img
-              src={user.profileImage}
-              alt={user.username}
-              className="w-10 h-10 object-cover rounded-full border border-gray-200"
-            />
+            {user?.profilePicture ? (
+              <Avatar
+                alt="Profile Picture"
+                style={{ width: "25px", height: "25px", objectFit: "cover" }}
+                src={userBasicInfo?.profilePicture}
+              />
+            ) : (
+              <Stack direction="row" spacing={1}>
+                <Avatar
+                  style={{ width: "25px", height: "25px" }}
+                  {...stringAvatar(userBasicInfo?.username || "User")}
+                />
+              </Stack>
+            )}
             <div className="flex-1">
               <textarea
                 className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -285,18 +348,18 @@ const RecipePage = ({ recipe, user }) => {
             </div>
           </div>
           <h2 className="text-xl font-medium text-primary mb-4">
-            Comments ({recipe.rating.length})
+            {/* Comments ({recipe.rating.length}) */}
           </h2>
 
           <div className="space-y-3">
-            {recipe.rating.map((data, index) => (
+            {/* {recipe.rating.map((data, index) => (
               <div
                 key={index}
                 className="p-3 border border-gray-200 rounded shadow-sm bg-white"
               >
                 <p className="text-gray-800">{data.comment}</p>
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ const User = require('../../../models/user.models')
 // get all recipes  
 const getRecipes = async (req, res) => {
     try {
+        
         const recipes = await Recipe.find()
         if (!recipes) {
             return res.status(400).json({ success: false, message: "No recipes found" })

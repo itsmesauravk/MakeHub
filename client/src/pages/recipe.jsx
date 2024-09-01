@@ -1,53 +1,55 @@
 import React, { useEffect, useState } from "react"
 
 // import { Rating } from 'react-simple-star-rating'; // Add this if you want to use a rating component
-import recipes from "../data/recipes.json"
+
 import users from "../data/users.json"
 
 import { useParams } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import RecipePage from "../components/RecipePage"
+import FetchErrorPage from "../components/FetchErrorPage"
 
 const Recipe = () => {
   const [recipe, setRecipe] = useState(null) // Initial state is null
-  const [loading, setLoading] = useState(true) // Add a loading state
+
   const [user, setUser] = useState(null)
+  const [fetchError, setFetchError] = useState(false)
   const { slug } = useParams()
 
-  useEffect(() => {
-    // Simulate fetching data with a delay
-    const fetchRecipe = () => {
-      const viewRecipe = recipes.find((recipe) => recipe.slug === slug)
-      setRecipe(viewRecipe)
-      setLoading(false) // Set loading to false once data is fetched
+  const getRecipeFromSlug = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/recipe/get-single-recipe/${slug}`
+      )
+      const data = await response.json()
+      if (data.success) {
+        setRecipe(data.recipe)
+        setUser(data.recipe.userId)
+        setFetchError(false)
+      } else {
+        console.log(data.message)
+        setFetchError(true)
+      }
+    } catch (error) {
+      console.log("Somthing went wrong, Try again", error)
+      setFetchError(true)
     }
-    fetchRecipe()
+  }
+
+  useEffect(() => {
+    getRecipeFromSlug()
   }, [slug])
-
-  useEffect(() => {
-    const fetchUser = () => {
-      const user = users.find((user) => user.id === recipe.userId)
-      setUser(user)
-    }
-    if (recipe) {
-      fetchUser()
-    }
-  }, [recipe])
-
-  if (loading) {
-    return <div className="text-center p-4">Loading...</div> // Display loading state
-  }
-
-  if (!recipe) {
-    return <div className="text-center p-4">Recipe not found</div> // Display error if recipe not found
-  }
 
   return (
     <div>
       <Navbar />
       <div className="flex flex-col gap-10 items-center my-auto w-3/4 mx-auto mt-16">
-        <RecipePage recipe={recipe} user={user} />
+        {fetchError ? (
+          <FetchErrorPage />
+        ) : (
+          <RecipePage recipe={recipe} user={user} />
+        )}
       </div>
       <Footer />
     </div>

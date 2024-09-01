@@ -5,9 +5,25 @@ import RecipeCard from "./recipe/cards"
 const MostLiked = () => {
   const [mostLiked, setMostLiked] = useState([])
 
+  //this will change later
+  const getMostLikedRecipes = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/recipe/all-recipes`
+      )
+      const data = await response.json()
+      if (data.success) {
+        setMostLiked(data.recipes.slice(5, 12))
+      } else {
+        console.log(data.message)
+      }
+    } catch (error) {
+      console.log("Error getting recipes", error)
+    }
+  }
+
   useEffect(() => {
-    const popular = recipes.filter((recipe) => recipe.likes.length > 2)
-    setMostLiked(popular)
+    getMostLikedRecipes()
   }, [])
 
   return (

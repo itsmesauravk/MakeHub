@@ -19,11 +19,11 @@ app.use(cookieParser());
 
 
 
-const loginRoutes = require('./routes/user.routes');
+const userRoutes = require('./routes/user.routes');
 const recipeRoutes = require('./routes/recipe.routes');
 
 
-app.use('/api', loginRoutes);
+app.use('/api', userRoutes);
 app.use('/api/recipe', recipeRoutes);
 
 

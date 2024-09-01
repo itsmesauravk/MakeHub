@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar"
 import { IoMdEye } from "react-icons/io"
 import { IoMdEyeOff } from "react-icons/io"
 import toast from "react-hot-toast"
-import Spinner from "../components/loader"
+import { Spinner } from "../components/loader"
 import { LoginContext } from "../components/LoginContext"
 
 const Login = () => {

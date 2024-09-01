@@ -16,6 +16,7 @@ import Navbar from "../components/Navbar"
 import { Link, useNavigate } from "react-router-dom"
 import { LoginContext } from "../components/LoginContext"
 import Footer from "../components/Footer"
+import { Spinner, DotSpinner } from "../components/loader"
 
 import toast from "react-hot-toast"
 
@@ -157,19 +158,19 @@ const NewRecipe = () => {
       if (data.success) {
         toast.success(data.message)
         setLoading(false)
-        setTitle("")
-        setSummary("")
-        setDescription("")
-        setImage(null)
-        setImagePreview("")
-        setType("")
-        setCategories([])
-        setIngredients([""])
-        setMethods([""])
+        // setTitle("")
+        // setSummary("")
+        // setDescription("")
+        // setImage(null)
+        // setImagePreview("")
+        // setType("")
+        // setCategories([])
+        // setIngredients([""])
+        // setMethods([""])
 
-        setTimeout(() => {
-          navigate(`/my-account/${userBasicInfo.slug}`)
-        }, 500)
+        // setTimeout(() => {
+        //   navigate(`/my-account/${userBasicInfo.slug}`)
+        // }, 500)
       } else {
         toast.error(data.message)
       }
@@ -423,7 +424,20 @@ const NewRecipe = () => {
                 width: "100%",
               }}
             >
-              {loading ? "Creating Your Recipe..." : "Create Recipe"}
+              {loading ? (
+                <div className="flex gap-2 justify-center items-center">
+                  <p>Creating Your Recipe</p>
+
+                  <Spinner
+                    width={"10px"}
+                    height={"10px"}
+                    backgroundColor={"#fff"}
+                    padding={"2px"}
+                  />
+                </div>
+              ) : (
+                "Create Recipe"
+              )}
             </Button>
           </form>
         </div>

@@ -1,14 +1,35 @@
 import React, { useEffect, useState } from "react"
-import recipes from "../data/recipes.json"
+
 import RecipeCard from "./recipe/cards"
 
 const PopularRecipe = () => {
   const [popularRecipes, setPopularRecipes] = useState([])
 
+  //this will change later
+  const getPopularRecipes = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/recipe/all-recipes`
+      )
+      const data = await response.json()
+      if (data.success) {
+        setPopularRecipes(data.recipes.slice(4, 12))
+      } else {
+        console.log(data.message)
+      }
+    } catch (error) {
+      console.log("Error getting recipes", error)
+    }
+  }
+
   useEffect(() => {
-    const popular = recipes.filter((recipe) => recipe.views > 1200)
-    setPopularRecipes(popular)
+    getPopularRecipes()
   }, [])
+
+  // useEffect(() => {
+  //   const popular = recipes.filter((recipe) => recipe.views > 1200)
+  //   setPopularRecipes(popular)
+  // }, [])
 
   return (
     <div className="mt-5">

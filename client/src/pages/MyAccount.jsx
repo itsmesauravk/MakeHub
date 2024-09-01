@@ -98,7 +98,7 @@ const MyAccount = () => {
     getRecipes("my-recipes")
   }, [userBasicInfo.slug])
 
-  console.log(userProfile)
+  // console.log(userProfile)
 
   return (
     <div>

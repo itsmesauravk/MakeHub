@@ -1,7 +1,7 @@
 import React from "react"
 import "./loader.css"
 
-const Spinner = ({ width, height, backgroundColor, padding }) => {
+export const Spinner = ({ width, height, backgroundColor, padding }) => {
   return (
     <div
       class="loader"
@@ -15,4 +15,17 @@ const Spinner = ({ width, height, backgroundColor, padding }) => {
   )
 }
 
-export default Spinner
+export const DotSpinner = ({ width, height, backgroundColor, padding }) => {
+  return (
+    <div
+      class="dot-loader"
+      style={{
+        width: `${width}`,
+        height: `${height}`,
+        color: `#fff`,
+
+        padding: `${padding}`,
+      }}
+    ></div>
+  )
+}

@@ -5,7 +5,7 @@ import { FaGoogle } from "react-icons/fa"
 import Navbar from "../components/Navbar"
 import { IoMdEye, IoMdEyeOff } from "react-icons/io"
 import toast from "react-hot-toast"
-import Spinner from "../components/loader"
+import { Spinner } from "../components/loader"
 
 const Signup = () => {
   const [seePassword, setSeePassword] = useState(false)
