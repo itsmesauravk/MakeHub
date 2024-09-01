@@ -17,7 +17,10 @@ const FetchErrorPage = () => {
         className="h-56 w-56"
       />
       <h1 className="text-4xl font-bold mb-4">Something went wrong</h1>
-      <p className="text-lg mb-6">Please try again.</p>
+      <p className="text-lg mb-1">Reason might be:</p>
+      <p className="text-base ">Check your Internet Connection</p>
+      <p className="text-base mb-6">Internal Server Error</p>
+
       <div className="space-x-4">
         <button
           onClick={handleReload}

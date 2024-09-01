@@ -6,13 +6,18 @@ import UserProfile from './pages/UserProfile';
 import AllRecipes from './pages/AllRecipes';
 import MyAccount from './pages/MyAccount';
 import About from './pages/About';
-import Soon from './pages/Soon';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import NewRecipe from './pages/NewRecipe';
-// import { Toaster } from 'react-hot-toast';
+import Search from './pages/Search';
+import PrivateRoute from './PrivateRoutes';
+
+
+
 
 function App() {
+  
+
   return (
     <Router>
       <Routes>
@@ -21,11 +26,17 @@ function App() {
         <Route path="/view-user/profile" element={<UserProfile />} />
         <Route path="/all-recipes" element={<AllRecipes />} />
         <Route path='/about' element={<About />} />
-        <Route path='/coming-soon' element={<Soon />} />
+        <Route path='/search' element={<Search />} />
 
-        <Route path="/my-account/:slug" element={<MyAccount />} />
-
-        <Route path='/my-account/:slug/create-recipe' element={<NewRecipe />} />
+        {/* Protected Routes */}
+        <Route
+          path="/my-account/:slug"
+          element={<PrivateRoute element={MyAccount} />}
+        />
+        <Route
+          path="/my-account/:slug/create-recipe"
+          element={<PrivateRoute element={NewRecipe} />}
+        />
 
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
@@ -36,3 +47,4 @@ function App() {
 }
 
 export default App;
+

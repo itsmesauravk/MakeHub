@@ -8,12 +8,20 @@ const MostLiked = () => {
   //this will change later
   const getMostLikedRecipes = async () => {
     try {
+      const queryParams = new URLSearchParams({
+        page: 1,
+        limit: 8,
+        type: "all",
+        category: "all",
+        sort: "high-low",
+      }).toString()
+
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/recipe/all-recipes`
+        `${process.env.REACT_APP_API_URL}/recipe/filter-recipes?${queryParams}`
       )
       const data = await response.json()
       if (data.success) {
-        setMostLiked(data.recipes.slice(5, 12))
+        setMostLiked(data.data)
       } else {
         console.log(data.message)
       }

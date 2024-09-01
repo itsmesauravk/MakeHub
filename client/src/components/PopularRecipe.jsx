@@ -4,21 +4,33 @@ import RecipeCard from "./recipe/cards"
 
 const PopularRecipe = () => {
   const [popularRecipes, setPopularRecipes] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  const queryParams = new URLSearchParams({
+    page: 1,
+    limit: 12,
+
+    sort: "popular",
+  }).toString()
 
   //this will change later
   const getPopularRecipes = async () => {
     try {
+      setLoading(true)
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/recipe/all-recipes`
+        `${process.env.REACT_APP_API_URL}/recipe/filter-recipes?${queryParams}`
       )
       const data = await response.json()
       if (data.success) {
-        setPopularRecipes(data.recipes.slice(4, 12))
+        setPopularRecipes(data.data.slice(3, 11))
+        setLoading(false)
       } else {
         console.log(data.message)
+        setLoading(false)
       }
     } catch (error) {
       console.log("Error getting recipes", error)
+      setLoading(false)
     }
   }
 
@@ -45,7 +57,11 @@ const PopularRecipe = () => {
       </div>
       <div className="container mx-auto flex flex-wrap  gap-4">
         {popularRecipes.map((recipe) => (
-          <RecipeCard key={recipe.id} recipeDetails={recipe} />
+          <RecipeCard
+            key={recipe.id}
+            loading={loading}
+            recipeDetails={recipe}
+          />
         ))}
       </div>
     </div>

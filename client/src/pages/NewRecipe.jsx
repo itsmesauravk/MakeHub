@@ -158,19 +158,19 @@ const NewRecipe = () => {
       if (data.success) {
         toast.success(data.message)
         setLoading(false)
-        // setTitle("")
-        // setSummary("")
-        // setDescription("")
-        // setImage(null)
-        // setImagePreview("")
-        // setType("")
-        // setCategories([])
-        // setIngredients([""])
-        // setMethods([""])
+        setTitle("")
+        setSummary("")
+        setDescription("")
+        setImage(null)
+        setImagePreview("")
+        setType("")
+        setCategories([])
+        setIngredients([""])
+        setMethods([""])
 
-        // setTimeout(() => {
-        //   navigate(`/my-account/${userBasicInfo.slug}`)
-        // }, 500)
+        setTimeout(() => {
+          navigate(`/my-account/${userBasicInfo.slug}`)
+        }, 500)
       } else {
         toast.error(data.message)
       }

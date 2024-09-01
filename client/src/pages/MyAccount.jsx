@@ -19,7 +19,9 @@ import { MdModeEdit } from "react-icons/md"
 import EditProfile from "../components/EditProfile"
 
 import { LoginContext } from "../components/LoginContext"
-import { Link } from "react-router-dom"
+import { Link, useNavigation } from "react-router-dom"
+
+import { MdOutlineLogout } from "react-icons/md"
 
 const MyAccount = () => {
   const [value, setValue] = useState("1")
@@ -89,6 +91,16 @@ const MyAccount = () => {
     }
   }
 
+  const handleLogout = () => {
+    // logout user
+    const confirmLogout = window.confirm("Are you sure you want to logout?")
+    if (confirmLogout) {
+      // logout user
+      localStorage.removeItem("token")
+      window.location.href = "/"
+    }
+  }
+
   useEffect(() => {
     getUserProfile()
 
@@ -127,6 +139,16 @@ const MyAccount = () => {
                     {userProfile?.fullname}
                   </h2>
                   <div className="flex gap-2">
+                    <Link
+                      to={`/my-account/${userBasicInfo?.slug}/create-recipe`}
+                    >
+                      <button
+                        onClick={handleOpenAddRecipeModal}
+                        className="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg transition-all"
+                      >
+                        Add Recipe
+                      </button>
+                    </Link>
                     <button
                       onClick={handleOpenEditProfileModal}
                       className="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg transition-all"
@@ -138,20 +160,13 @@ const MyAccount = () => {
                       onClose={handleCloseEditProfileModal}
                     />
 
-                    <Link
-                      to={`/my-account/${userBasicInfo?.slug}/create-recipe`}
+                    <button
+                      onClick={() => handleLogout()}
+                      className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-all"
                     >
-                      <button
-                        onClick={handleOpenAddRecipeModal}
-                        className="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg transition-all"
-                      >
-                        Add Recipe
-                      </button>
-                    </Link>
-                    {/* <AddRecipePage
-                      isOpen={isAddRecipeModalOpen}
-                      onClose={handleCloseAddRecipeModal}
-                    /> */}
+                      Log Out
+                      <MdOutlineLogout className="inline-block ml-2" />
+                    </button>
                   </div>
                 </div>
                 <div className="flex gap-4 mt-4 font-bold">

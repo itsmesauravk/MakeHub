@@ -7,7 +7,6 @@ import { LoginContext } from "./LoginContext"
 //for avatar
 import Avatar from "@mui/material/Avatar"
 import Stack from "@mui/material/Stack"
-import { deepOrange, deepPurple } from "@mui/material/colors"
 
 const Navbar = () => {
   const [bgColor, setBgColor] = useState("transparent")
@@ -83,10 +82,10 @@ const Navbar = () => {
         </Link>
 
         <Link
-          to="/coming-soon"
+          to="/search"
           className="font-semibold hover:text-primary transition-colors"
         >
-          Soon
+          Search
         </Link>
       </div>
 

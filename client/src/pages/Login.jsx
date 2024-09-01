@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import Logo from "../components/Logo"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, redirect, useLocation, useNavigate } from "react-router-dom"
 import { FaGoogle } from "react-icons/fa"
 import Navbar from "../components/Navbar"
 import { IoMdEye } from "react-icons/io"
@@ -17,7 +17,11 @@ const Login = () => {
 
   const { setIsLoggedIn, setUserBasicInfo } = useContext(LoginContext)
 
+  const location = useLocation()
   const navigate = useNavigate()
+
+  const searchParams = new URLSearchParams(location.search)
+  const redirectPath = searchParams.get("redirect")
 
   const passwordVisibleHandler = () => {
     setSeePassword((prevSeePassword) => !prevSeePassword)
@@ -49,7 +53,11 @@ const Login = () => {
         setUserBasicInfo(data.user)
 
         setTimeout(() => {
-          navigate("/")
+          if (redirectPath) {
+            navigate(`/${redirectPath}`)
+          } else {
+            navigate("/")
+          }
           setLoading(false)
         }, 1000)
       } else {

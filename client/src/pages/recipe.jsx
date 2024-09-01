@@ -9,16 +9,19 @@ import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import RecipePage from "../components/RecipePage"
 import FetchErrorPage from "../components/FetchErrorPage"
+import { Spinner } from "../components/loader"
 
 const Recipe = () => {
   const [recipe, setRecipe] = useState(null) // Initial state is null
 
   const [user, setUser] = useState(null)
   const [fetchError, setFetchError] = useState(false)
+  const [loading, setLoading] = useState(false)
   const { slug } = useParams()
 
   const getRecipeFromSlug = async () => {
     try {
+      setLoading(true)
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/recipe/get-single-recipe/${slug}`
       )
@@ -27,13 +30,16 @@ const Recipe = () => {
         setRecipe(data.recipe)
         setUser(data.recipe.userId)
         setFetchError(false)
+        setLoading(false)
       } else {
         console.log(data.message)
         setFetchError(true)
+        setLoading(false)
       }
     } catch (error) {
       console.log("Somthing went wrong, Try again", error)
       setFetchError(true)
+      setLoading(false)
     }
   }
 
@@ -44,9 +50,15 @@ const Recipe = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col gap-10 items-center my-auto w-3/4 mx-auto mt-16">
-        {fetchError ? (
-          <FetchErrorPage />
+      {fetchError && <FetchErrorPage />}
+      <div className="flex flex-col gap-10 items-center my-auto w-3/4 mx-auto mt-20">
+        {loading ? (
+          <Spinner
+            width={"50px"}
+            height={"50px"}
+            backgroundColor={"#F3043A"}
+            padding={"4px"}
+          />
         ) : (
           <RecipePage recipe={recipe} user={user} />
         )}

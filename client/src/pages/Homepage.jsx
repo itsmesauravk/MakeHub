@@ -8,27 +8,37 @@ import MostLiked from "../components/MostLiked"
 
 const Homepage = () => {
   const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false)
 
-  //this will change later
+  const queryParams = new URLSearchParams({
+    page: 1,
+    limit: 3,
+    type: "all",
+    category: "all",
+    sort: "popular",
+  }).toString()
+
   const getTopRecipes = async () => {
     try {
+      setLoading(true)
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/recipe/all-recipes`
+        `${process.env.REACT_APP_API_URL}/recipe/filter-recipes?${queryParams}`
       )
       const data = await response.json()
       if (data.success) {
-        setData(data.recipes.slice(2, 5))
+        setData(data.data)
+        setLoading(false)
       } else {
         console.log(data.message)
+        setLoading(false)
       }
     } catch (error) {
       console.log("Error getting recipes", error)
+      setLoading(false)
     }
   }
 
   useEffect(() => {
-    // const topThreeRecipes = popularRecipesData.slice(0, 3)
-    // setData(topThreeRecipes)
     getTopRecipes()
   }, [])
 
@@ -65,16 +75,18 @@ const Homepage = () => {
 
           {/* Top Recipes Cards */}
           <div className="flex flex-wrap justify-between">
-            {data.map((recipe, index) => (
-              <Transition key={index}>
-                <TopRecipes
-                  title={recipe.title}
-                  description={recipe.summary}
-                  image={recipe.image}
-                  slug={recipe.slug}
-                />
-              </Transition>
-            ))}
+            {data &&
+              data.map((recipe, index) => (
+                <Transition key={index}>
+                  <TopRecipes
+                    loading={loading}
+                    title={recipe.title}
+                    description={recipe.summary}
+                    image={recipe.image}
+                    slug={recipe.slug}
+                  />
+                </Transition>
+              ))}
           </div>
         </div>
 
