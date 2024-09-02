@@ -8,6 +8,10 @@ const followController = require('./sub-controller/follow.controller');
 
 const {updateProfile, updatePrivacy} = require('./sub-controller/updateprofile.controller');
 
+const forgotPassword = require('./sub-controller/forgotpassword.controller');
+
+const {verifyResetToken,resendOTP, resetPassword} = require('./sub-controller/verifyTokens.controller')
+
 
 
 module.exports = {
@@ -18,5 +22,9 @@ module.exports = {
     inspectUser,
     followController,
     updateProfile,
-    updatePrivacy
+    updatePrivacy,
+    forgotPassword,
+    verifyResetToken,
+    resetPassword,
+    resendOTP
 }
