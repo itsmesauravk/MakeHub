@@ -7,6 +7,10 @@ const LoginProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userBasicInfo, setUserBasicInfo] = useState({})
 
+  console.log("Login Context :")
+  console.log("Is Logged In: ", isLoggedIn)
+  console.log("User Basic Info: ", userBasicInfo)
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {

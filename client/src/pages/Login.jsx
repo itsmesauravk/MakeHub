@@ -54,7 +54,7 @@ const Login = () => {
 
         setTimeout(() => {
           if (redirectPath) {
-            navigate(`/${redirectPath}`)
+            navigate(`${redirectPath}`)
           } else {
             navigate("/")
           }
@@ -136,7 +136,7 @@ const Login = () => {
                   </p>
                 </div>
                 <div className="flex justify-end p-1 underline text-primary">
-                  <Link to={"/forgot-password"}>forgot password ?</Link>
+                  <Link to={"/forgot-password"}>Forgot password ?</Link>
                 </div>
               </div>
               <button

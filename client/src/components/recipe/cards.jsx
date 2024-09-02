@@ -8,7 +8,7 @@ import { Link } from "react-router-dom"
 import RecipeCardSkeleton from "../../loadingSkeletons/CardSkeletion"
 
 const RecipeCard = ({ loading, recipeDetails }) => {
-  console.log(recipeDetails)
+  // console.log(recipeDetails)
   return (
     <>
       {loading ? (

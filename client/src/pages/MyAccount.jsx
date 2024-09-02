@@ -2,9 +2,6 @@ import React, { useContext, useEffect, useState } from "react"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 
-import users from "../data/users.json"
-import recipes from "../data/recipes.json"
-
 import Box from "@mui/material/Box"
 import Tab from "@mui/material/Tab"
 import TabContext from "@mui/lab/TabContext"
@@ -19,7 +16,7 @@ import { MdModeEdit } from "react-icons/md"
 import EditProfile from "../components/EditProfile"
 
 import { LoginContext } from "../components/LoginContext"
-import { Link, useNavigation } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 import { MdOutlineLogout } from "react-icons/md"
 
@@ -123,14 +120,21 @@ const MyAccount = () => {
             <div className="flex flex-col md:flex-row items-center gap-8 w-full">
               {/* Profile Image */}
               <div className="flex justify-center md:justify-start w-full md:w-1/4">
-                <img
-                  src={
-                    userProfile?.profileImage ||
-                    "https://freedesignfile.com/upload/2019/11/Professionals-cook-vector.jpg"
-                  }
-                  alt="user-profile"
-                  className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover"
-                />
+                {userProfile?.profilePicture ? (
+                  <img
+                    src={userProfile?.profilePicture}
+                    alt="user-profile"
+                    className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover"
+                  />
+                ) : (
+                  <img
+                    src={
+                      "https://freedesignfile.com/upload/2019/11/Professionals-cook-vector.jpg"
+                    }
+                    alt="user-profile"
+                    className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover"
+                  />
+                )}
               </div>
               {/* Profile Info */}
               <div className="flex flex-col w-full md:w-3/4">
@@ -158,6 +162,7 @@ const MyAccount = () => {
                     <EditProfile
                       isOpen={isEditProfileModalOpen}
                       onClose={handleCloseEditProfileModal}
+                      userDetails={userProfile}
                     />
 
                     <button

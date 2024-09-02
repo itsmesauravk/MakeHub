@@ -11,6 +11,9 @@ import Signup from './pages/Signup';
 import NewRecipe from './pages/NewRecipe';
 import Search from './pages/Search';
 import PrivateRoute from './PrivateRoutes';
+import ForgotPassword from './pages/ForgotPassword';
+import OtpVerification from './pages/OtpVerification';
+import ResetPassword from './pages/ResetPassword';
 
 
 
@@ -27,15 +30,19 @@ function App() {
         <Route path="/all-recipes" element={<AllRecipes />} />
         <Route path='/about' element={<About />} />
         <Route path='/search' element={<Search />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/email-verification' element={<OtpVerification />} />
+        <Route path='/reset-password' element={<ResetPassword />} />
 
         {/* Protected Routes */}
         <Route
           path="/my-account/:slug"
-          element={<PrivateRoute element={MyAccount} />}
+          element={<MyAccount />}
         />
+
         <Route
           path="/my-account/:slug/create-recipe"
-          element={<PrivateRoute element={NewRecipe} />}
+          element={<NewRecipe />}
         />
 
         <Route path='/login' element={<Login />} />

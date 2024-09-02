@@ -99,7 +99,7 @@ const RecipePage = ({ recipe, user }) => {
   const handleLike = async () => {
     if (!isLoggedIn) {
       toast.error("Please login to like the recipe.")
-      return navigate(`/login?redirect=recipe/${recipe?.slug}`)
+      return navigate(`/login?redirect=/recipe/${recipe?.slug}`)
     }
     try {
       const response = await fetch(

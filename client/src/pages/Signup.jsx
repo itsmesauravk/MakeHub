@@ -110,7 +110,7 @@ const Signup = () => {
                 <input
                   id="username"
                   type="text"
-                  placeholder="username nust be unique"
+                  placeholder="username must be unique"
                   value={formData.username}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
@@ -127,7 +127,7 @@ const Signup = () => {
                 <input
                   id="fullname"
                   type="text"
-                  placeholder="Enter your full name"
+                  placeholder="Enter your full name (cannot be changed later)"
                   value={formData.fullname}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"

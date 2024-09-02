@@ -38,6 +38,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
+    imageId: {
+        type: String,
+    },
     recipesPosted: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'recipe',
