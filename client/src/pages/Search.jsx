@@ -3,6 +3,7 @@ import { gsap } from "gsap"
 import Navbar from "../components/Navbar"
 import { FaSearch } from "react-icons/fa"
 import RecipeCard from "../components/recipe/cards"
+import { Spinner } from "../components/loader"
 
 const Search = () => {
   const textRef = useRef(null)
@@ -16,6 +17,8 @@ const Search = () => {
     "Water",
     "drink",
   ])
+
+  const [loading, setLoading] = useState(false)
 
   const [searchResults, setSearchResults] = useState([])
 
@@ -64,14 +67,23 @@ const Search = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault()
-    // Implement search logic here
+
     console.log("Search Term:", searchTerm)
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/recipe/search?term=${searchTerm}`
-    )
-    const data = await response.json()
-    if (data.success) {
-      setSearchResults(data.recipes.slice(0, 6))
+    try {
+      setLoading(true)
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/recipe/search?term=${searchTerm}`
+      )
+      const data = await response.json()
+      if (data.success) {
+        setSearchResults(data.recipes.slice(0, 6))
+        setLoading(false)
+      }
+    } catch (error) {
+      console.log("Error searching for recipes", error)
+      setLoading(false)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -125,22 +137,36 @@ const Search = () => {
         max-w-3xl"
         ></div>
 
-        {/* // search results */}
-        {searchResults.length > 0 ? (
-          <div className="container mx-auto px-4 py-8">
-            <h2 className="flex justify-center items-center text-2xl font-semibold text-gray-800 mb-6">
-              Search Results for "{searchTerm}"
-            </h2>
-            <div className="flex gap-4 flex-wrap justify-center items-center">
-              {searchResults.map((recipe) => (
-                <RecipeCard key={recipe._id} recipeDetails={recipe} />
-              ))}
-            </div>
+        {/* loading spinner */}
+        {loading ? (
+          <div className="mt-8">
+            <Spinner
+              width={"50px"}
+              height={"50px"}
+              backgroundColor={"#F3043A"}
+              padding={"4px"}
+            />
           </div>
         ) : (
-          <div className="text-2xl font-semibold text-gray-500 mt-8">
-            No results found for "{searchTerm}"
-          </div>
+          <>
+            {/* // search results */}
+            {searchResults.length > 0 ? (
+              <div className="container mx-auto px-4 py-8">
+                <h2 className="flex justify-center items-center text-2xl font-semibold text-gray-800 mb-6">
+                  Search Results for "{searchTerm}"
+                </h2>
+                <div className="flex gap-4 flex-wrap justify-center items-center">
+                  {searchResults.map((recipe) => (
+                    <RecipeCard key={recipe._id} recipeDetails={recipe} />
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="text-2xl font-semibold text-gray-500 mt-8">
+                No results found for "{searchTerm}"
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

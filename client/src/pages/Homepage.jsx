@@ -5,6 +5,7 @@ import TopRecipes from "../components/recipe/TopRecipes"
 import Transition from "../components/Transition"
 import PopularRecipe from "../components/PopularRecipe"
 import MostLiked from "../components/MostLiked"
+import BasicStats from "../components/BasicStats"
 
 const Homepage = () => {
   const [data, setData] = useState([])
@@ -74,7 +75,7 @@ const Homepage = () => {
           </div>
 
           {/* Top Recipes Cards */}
-          <div className="flex flex-wrap justify-between">
+          <div className="flex flex-wrap items-center justify-between">
             {data &&
               data.map((recipe, index) => (
                 <Transition key={index}>
@@ -89,6 +90,9 @@ const Homepage = () => {
               ))}
           </div>
         </div>
+
+        {/* basic stats  */}
+        <BasicStats />
 
         {/* Popular Recipes */}
         <PopularRecipe />

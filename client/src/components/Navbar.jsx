@@ -8,6 +8,13 @@ import { LoginContext } from "./LoginContext"
 import Avatar from "@mui/material/Avatar"
 import Stack from "@mui/material/Stack"
 
+//bell
+import { IoNotifications } from "react-icons/io5"
+//find user
+import { RiUserSearchFill } from "react-icons/ri"
+
+import Tooltip from "@mui/material/Tooltip"
+
 const Navbar = () => {
   const [bgColor, setBgColor] = useState("transparent")
   const { isLoggedIn, userBasicInfo } = useContext(LoginContext)
@@ -89,38 +96,64 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {isLoggedIn ? (
-        <Link
-          to={`/my-account/${userBasicInfo?.slug}`}
-          className="flex items-center gap-1 translate-x-1"
-        >
-          {userBasicInfo?.profilePicture ? (
-            <Avatar
-              alt="Profile Picture"
-              style={{ width: "25px", height: "25px", objectFit: "cover" }}
-              src={userBasicInfo?.profilePicture}
-            />
-          ) : (
-            <Stack direction="row" spacing={1}>
-              <Avatar
-                style={{ width: "25px", height: "25px" }}
-                {...stringAvatar(userBasicInfo?.username || "User")}
-              />
-            </Stack>
-          )}
+      <div className="flex items-center gap-4">
+        {/* notification  */}
+        <Tooltip title="Notifications" arrow>
+          <Link
+            className="flex gap-1 p-1 rounded-md  hover:text-primary-dark"
+            to={"/notifications"}
+          >
+            <span className="text-secondary">
+              (<span className="font-semibold text-primary-dark ">3</span>)
+            </span>{" "}
+            <IoNotifications className="text-2xl  animate-wiggle" />
+          </Link>
+        </Tooltip>
+        {/* find user  */}
+        <Tooltip title="Find Users" arrow>
+          <Link
+            className="flex gap-1 p-1 rounded-md  hover:text-primary-dark"
+            to={"/find-users"}
+          >
+            <RiUserSearchFill className="text-2xl  " />
+          </Link>
+        </Tooltip>
 
-          <p className="text-primary font-semibold ">
-            {userBasicInfo?.username}
-          </p>
-        </Link>
-      ) : (
-        <Link
-          to="/login"
-          className="text-primary font-semibold hover:underline hover:text-primary-dark transition duration-300 ease-in-out"
-        >
-          Log In
-        </Link>
-      )}
+        {isLoggedIn ? (
+          <Tooltip title="My Account" arrow>
+            <Link
+              to={`/my-account/${userBasicInfo?.slug}`}
+              className="flex items-center gap-1 translate-x-1"
+            >
+              {userBasicInfo?.profilePicture ? (
+                <Avatar
+                  alt="Profile Picture"
+                  style={{ width: "25px", height: "25px", objectFit: "cover" }}
+                  src={userBasicInfo?.profilePicture}
+                />
+              ) : (
+                <Stack direction="row" spacing={1}>
+                  <Avatar
+                    style={{ width: "25px", height: "25px" }}
+                    {...stringAvatar(userBasicInfo?.username || "User")}
+                  />
+                </Stack>
+              )}
+
+              <p className="text-primary font-semibold ">
+                {userBasicInfo?.username}
+              </p>
+            </Link>
+          </Tooltip>
+        ) : (
+          <Link
+            to="/login"
+            className="text-primary font-semibold hover:underline hover:text-primary-dark transition duration-300 ease-in-out"
+          >
+            Log In
+          </Link>
+        )}
+      </div>
     </nav>
   )
 }

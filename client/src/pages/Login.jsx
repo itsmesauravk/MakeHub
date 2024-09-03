@@ -74,6 +74,11 @@ const Login = () => {
     }
   }
 
+  const authLogin = async () => {
+    window.location.href = `http://localhost:8000/auth/google`
+    
+  }
+
   return (
     <div>
       <Navbar />
@@ -172,7 +177,10 @@ const Login = () => {
               <span className="mx-4 text-gray-500">OR</span>
               <hr className="w-full border-gray-300" />
             </div>
-            <button className="w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded-md flex items-center justify-center gap-2 hover:bg-gray-100">
+            <button
+              onClick={authLogin}
+              className="w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded-md flex items-center justify-center gap-2 hover:bg-gray-100"
+            >
               <FaGoogle />
               Continue with Google
             </button>

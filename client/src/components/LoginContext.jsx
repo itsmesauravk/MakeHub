@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 export const LoginContext = createContext()
 
@@ -7,9 +7,18 @@ const LoginProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userBasicInfo, setUserBasicInfo] = useState({})
 
+  console.log(window.location.pathname)
+  if (isLoggedIn && window.location.pathname === "/login") {
+    window.location.href = "/"
+  } else if (isLoggedIn && window.location.pathname === "/signup") {
+    window.location.href = "/"
+  }
+
   console.log("Login Context :")
   console.log("Is Logged In: ", isLoggedIn)
   console.log("User Basic Info: ", userBasicInfo)
+
+  console.log("ck", document.cookie)
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -33,6 +42,7 @@ const LoginProvider = ({ children }) => {
         const data = await response.json()
         if (data.success) {
           setUserBasicInfo(data.user)
+          setIsLoggedIn(true)
         } else {
           setIsLoggedIn(false)
         }

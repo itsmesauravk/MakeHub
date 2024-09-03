@@ -12,6 +12,8 @@ import RecipeCard from "../components/recipe/cards"
 
 import toast from "react-hot-toast"
 
+import { Spinner } from "../components/loader"
+
 import { MdModeEdit } from "react-icons/md"
 import EditProfile from "../components/EditProfile"
 
@@ -19,12 +21,18 @@ import { LoginContext } from "../components/LoginContext"
 import { Link } from "react-router-dom"
 
 import { MdOutlineLogout } from "react-icons/md"
+import { MdDelete } from "react-icons/md"
+
+import Tooltip from "@mui/material/Tooltip"
 
 const MyAccount = () => {
   const [value, setValue] = useState("1")
   const [myRecipe, setMyRecipe] = useState([])
   const [myLiked, setMyLiked] = useState([])
   const [mySaved, setMySaved] = useState([])
+
+  const [profileLoading, setProfileLoading] = useState(false)
+  const [recipeLoading, setRecipeLoading] = useState(false)
 
   const { userBasicInfo } = useContext(LoginContext)
 
@@ -46,6 +54,7 @@ const MyAccount = () => {
   //getting user info
   const getUserProfile = async () => {
     try {
+      setProfileLoading(true)
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/user-profile/${userBasicInfo.slug}`,
         {
@@ -55,9 +64,11 @@ const MyAccount = () => {
       const data = await response.json()
       if (data.success) {
         setUserProfile(data.user)
+        setProfileLoading(false)
       }
     } catch (error) {
       console.log("Error getting user profile", error)
+      setProfileLoading(false)
     }
   }
 
@@ -65,6 +76,7 @@ const MyAccount = () => {
 
   const getRecipes = async (type) => {
     try {
+      setRecipeLoading(true)
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/recipe/get-recipes/${userBasicInfo._id}?type=${type}`,
         {
@@ -75,16 +87,21 @@ const MyAccount = () => {
       if (data.success) {
         if (type === "my-recipes") {
           setMyRecipe(data.user.recipesPosted)
+          setRecipeLoading(false)
         } else if (type === "my-likes") {
           setMyLiked(data.user.myLikes)
+          setRecipeLoading(false)
         } else if (type === "my-saved") {
           setMySaved(data.user.mySaved)
+          setRecipeLoading(false)
         }
       } else {
         console.log("Error getting recipes")
+        setRecipeLoading(false)
       }
     } catch (error) {
       console.log("Error getting recipes", error)
+      setRecipeLoading(false)
     }
   }
 
@@ -117,80 +134,91 @@ const MyAccount = () => {
           // <div>
           <>
             {/* Profile Section */}
-            <div className="flex flex-col md:flex-row items-center gap-8 w-full">
-              {/* Profile Image */}
-              <div className="flex justify-center md:justify-start w-full md:w-1/4">
-                {userProfile?.profilePicture ? (
-                  <img
-                    src={userProfile?.profilePicture}
-                    alt="user-profile"
-                    className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover"
-                  />
-                ) : (
-                  <img
-                    src={
-                      "https://freedesignfile.com/upload/2019/11/Professionals-cook-vector.jpg"
-                    }
-                    alt="user-profile"
-                    className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover"
-                  />
-                )}
-              </div>
-              {/* Profile Info */}
-              <div className="flex flex-col w-full md:w-3/4">
-                <div className="flex flex-col md:flex-row items-center gap-4 justify-between">
-                  <h2 className="text-2xl font-semibold text-primary">
-                    {userProfile?.fullname}
-                  </h2>
-                  <div className="flex gap-2">
-                    <Link
-                      to={`/my-account/${userBasicInfo?.slug}/create-recipe`}
-                    >
+            {profileLoading ? (
+              <Spinner
+                width={"25px"}
+                height={"25px"}
+                color={"#f3043a"}
+                padding={"3px"}
+              />
+            ) : (
+              <div className="flex flex-col md:flex-row items-center gap-8 w-full">
+                {/* Profile Image */}
+                <div className="flex justify-center md:justify-start w-full md:w-1/4">
+                  {userProfile?.profilePicture ? (
+                    <img
+                      src={userProfile?.profilePicture}
+                      alt="user-profile"
+                      className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover"
+                    />
+                  ) : (
+                    <img
+                      src={
+                        "https://freedesignfile.com/upload/2019/11/Professionals-cook-vector.jpg"
+                      }
+                      alt="user-profile"
+                      className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover"
+                    />
+                  )}
+                </div>
+                {/* Profile Info */}
+                <div className="flex flex-col w-full md:w-3/4">
+                  <div className="flex flex-col md:flex-row items-center gap-4 justify-between">
+                    <h2 className="text-2xl font-semibold text-primary">
+                      {userProfile?.fullname}
+                    </h2>
+                    <div className="flex gap-2">
+                      <Link
+                        to={`/my-account/${userBasicInfo?.slug}/create-recipe`}
+                      >
+                        <button
+                          onClick={handleOpenAddRecipeModal}
+                          className="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg transition-all"
+                        >
+                          Add Recipe
+                        </button>
+                      </Link>
                       <button
-                        onClick={handleOpenAddRecipeModal}
+                        onClick={handleOpenEditProfileModal}
                         className="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg transition-all"
                       >
-                        Add Recipe
+                        Edit Profile
                       </button>
-                    </Link>
-                    <button
-                      onClick={handleOpenEditProfileModal}
-                      className="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg transition-all"
-                    >
-                      Edit Profile
-                    </button>
-                    <EditProfile
-                      isOpen={isEditProfileModalOpen}
-                      onClose={handleCloseEditProfileModal}
-                      userDetails={userProfile}
-                    />
+                      <EditProfile
+                        isOpen={isEditProfileModalOpen}
+                        onClose={handleCloseEditProfileModal}
+                        userDetails={userProfile}
+                      />
 
-                    <button
-                      onClick={() => handleLogout()}
-                      className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-all"
-                    >
-                      Log Out
-                      <MdOutlineLogout className="inline-block ml-2" />
-                    </button>
+                      <button
+                        onClick={() => handleLogout()}
+                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-all"
+                      >
+                        Log Out
+                        <MdOutlineLogout className="inline-block ml-2" />
+                      </button>
+                    </div>
                   </div>
+                  <div className="flex gap-4 mt-4 font-bold">
+                    <p>
+                      {userProfile?.recipesPosted?.length}{" "}
+                      <strong>recipes</strong>
+                    </p>
+                    <p>
+                      {userProfile?.following?.length}{" "}
+                      <strong>following</strong>
+                    </p>
+                    <p>
+                      {userProfile?.followers?.length}{" "}
+                      <strong>followers</strong>
+                    </p>
+                  </div>
+                  <p className="text-sm text-secondary mt-2">
+                    {userProfile?.bio ? userProfile?.bio : "No bio available"}
+                  </p>
                 </div>
-                <div className="flex gap-4 mt-4 font-bold">
-                  <p>
-                    {userProfile?.recipesPosted?.length}{" "}
-                    <strong>recipes</strong>
-                  </p>
-                  <p>
-                    {userProfile?.following?.length} <strong>following</strong>
-                  </p>
-                  <p>
-                    {userProfile?.followers?.length} <strong>followers</strong>
-                  </p>
-                </div>
-                <p className="text-sm text-secondary mt-2">
-                  {userProfile?.bio ? userProfile?.bio : "No bio available"}
-                </p>
               </div>
-            </div>
+            )}
 
             {/* Tabs for Recipes, Liked, and Saved */}
             <Box sx={{ width: "100%", typography: "body1" }}>
@@ -216,6 +244,14 @@ const MyAccount = () => {
                 </Box>
 
                 <TabPanel value="1">
+                  {recipeLoading && (
+                    <Spinner
+                      width={"18px"}
+                      height={"18px"}
+                      color={"#f3043a"}
+                      padding={"2px"}
+                    />
+                  )}
                   <div className="flex flex-wrap gap-6">
                     {myRecipe.length === 0 && (
                       <div className="w-full text-center text-lg text-secondary">
@@ -224,22 +260,42 @@ const MyAccount = () => {
                     )}
                     {myRecipe.length > 0 &&
                       myRecipe.map((recipe) => (
-                        <div key={recipe.recipeId} className="relative">
+                        <div key={recipe._id} className="relative">
                           <RecipeCard recipeDetails={recipe} />
-                          <button
-                            className="absolute top-2 right-2 bg-white p-3 rounded-full shadow-md "
-                            onClick={() => {
-                              toast.success("Trying to Edit, Lad ?")
-                            }}
-                          >
-                            <MdModeEdit className="text-primary hover:text-secondary" />
-                          </button>
+                          <Tooltip title="Edit" arrow>
+                            <button
+                              className="absolute top-2 right-14 bg-white p-3 rounded-full shadow-md "
+                              onClick={() => {
+                                toast.success(recipe._id)
+                              }}
+                            >
+                              <MdModeEdit className="text-primary hover:text-blue-600" />
+                            </button>
+                          </Tooltip>
+                          <Tooltip title="Delete" arrow>
+                            <button
+                              className="absolute top-2 right-2 bg-white p-3 rounded-full shadow-md "
+                              onClick={() => {
+                                toast.success(recipe._id)
+                              }}
+                            >
+                              <MdDelete className="text-primary hover:text-red-600" />
+                            </button>
+                          </Tooltip>
                         </div>
                       ))}
                   </div>
                 </TabPanel>
 
                 <TabPanel value="2">
+                  {recipeLoading && (
+                    <Spinner
+                      width={"18px"}
+                      height={"18px"}
+                      color={"#f3043a"}
+                      padding={"2px"}
+                    />
+                  )}
                   <div className="flex flex-wrap gap-6">
                     {myLiked.length === 0 && (
                       <div className="w-full text-center text-lg text-secondary">
@@ -258,6 +314,14 @@ const MyAccount = () => {
                 </TabPanel>
 
                 <TabPanel value="3">
+                  {recipeLoading && (
+                    <Spinner
+                      width={"18px"}
+                      height={"18px"}
+                      color={"#f3043a"}
+                      padding={"2px"}
+                    />
+                  )}
                   <div className="flex flex-wrap gap-6">
                     {mySaved.length === 0 && (
                       <div className="w-full text-center text-lg text-secondary">

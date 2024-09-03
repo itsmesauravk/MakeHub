@@ -12,8 +12,11 @@ import NewRecipe from './pages/NewRecipe';
 import Search from './pages/Search';
 import PrivateRoute from './PrivateRoutes';
 import ForgotPassword from './pages/ForgotPassword';
-import OtpVerification from './pages/OtpVerification';
 import ResetPassword from './pages/ResetPassword';
+import EmailVerification from './pages/OtpVerification';
+import AuthSuccess from './pages/AuthSuccess';
+import Notification from './pages/Notification';
+import FindUser from './pages/FindUser';
 
 
 
@@ -31,8 +34,12 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/search' element={<Search />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
-        <Route path='/email-verification' element={<OtpVerification />} />
+        <Route path='/email-verification' element={<EmailVerification />} />
         <Route path='/reset-password' element={<ResetPassword />} />
+        <Route path='/notifications' element={<Notification />} />
+        <Route path='/find-users' element={<FindUser />} />
+
+        <Route path='/auth/success' element={<AuthSuccess />} />
 
         {/* Protected Routes */}
         <Route

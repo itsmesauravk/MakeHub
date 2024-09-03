@@ -5,7 +5,8 @@ const uploader = require('../Utils/multer');
 
 const {createRecipe,getRecipes,getRecipeForUser, getRecipeFromSlug, getAllRecipes,
     createRating, likeRecipe,saveRecipe,
-    search
+    search,
+    basicStats
 } = require('../controllers/Recipe/index');
 
 
@@ -37,6 +38,9 @@ router.post('/save-recipe', saveRecipe);
 
 //search
 router.get('/search', search);
+
+//basic stats
+router.get('/basic-stats', basicStats);
 
 
 module.exports = router;

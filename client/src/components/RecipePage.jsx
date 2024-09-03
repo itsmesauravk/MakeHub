@@ -288,7 +288,7 @@ const RecipePage = ({ recipe, user }) => {
               )}
 
               {recipe?.saved.includes(userBasicInfo?._id) ? (
-                <Tooltip title="Save">
+                <Tooltip title="UnSave">
                   <IconButton
                     onClick={() => {
                       handleBookmark()
@@ -298,7 +298,7 @@ const RecipePage = ({ recipe, user }) => {
                   </IconButton>
                 </Tooltip>
               ) : (
-                <Tooltip title="UnSave">
+                <Tooltip title="Save">
                   <IconButton
                     onClick={() => {
                       handleBookmark()
