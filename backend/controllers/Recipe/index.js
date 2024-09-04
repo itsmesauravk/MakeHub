@@ -10,6 +10,8 @@ const {likeRecipe,saveRecipe} = require('./sub-controller/likesave.controller')
 const search = require('./sub-controller/search.controller')
 const basicStats = require('./sub-controller/basicstats.controller')
 
+const {getNotifications, markAsRead} = require('./sub-controller/notification.controller')
+
 
 
 module.exports = {
@@ -22,5 +24,7 @@ module.exports = {
     likeRecipe,
     saveRecipe,
     search,
-    basicStats
+    basicStats,
+    getNotifications,
+    markAsRead
 }

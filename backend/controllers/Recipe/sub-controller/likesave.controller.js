@@ -1,6 +1,7 @@
 const Recipe = require("../../../models/recipe.models");
 const User = require("../../../models/user.models");
 const Rating = require("../../../models/reciperating.models");
+const Notification = require("../../../models/notification.model")
 
 
 
@@ -31,6 +32,10 @@ const likeRecipe = async (req, res) => {
                 $pull: {likes: userId}
             }, {new: true});
 
+            updateRecipe.likeCounts -= 1
+
+            await updateRecipe.save()
+
             if(!updateRecipe){
                 return res.status(400).json({success: false, message: 'Unable to like recipe'});
             }
@@ -51,6 +56,11 @@ const likeRecipe = async (req, res) => {
                 $push: {likes: userId}
             }, {new: true});
 
+            updateRecipe.likeCounts += 1
+
+            await updateRecipe.save()
+
+
             if(!updateRecipe){
                 return res.status(400).json({success: false, message: 'Unable to like recipe'});
             }
@@ -64,10 +74,22 @@ const likeRecipe = async (req, res) => {
                 return res.status(400).json({success: false, message: 'Unable to like recipe'});
             }
 
+                  // Create notification
+            const notification = new Notification({
+                type: 'like',
+                sender: userId,
+                receiver: recipe.userId,
+                recipe: recipeId,
+                message: `${updateUser.username} liked your recipe ${recipe.title}`,
+            });
+            
+            await notification.save();
+
+
             res.status(200).json({success: true, message: 'Added To Likes'});
         }
 
-        sendLikeNotification(userId, recipeId);
+        // sendLikeNotification(userId, recipeId);
 
         
     } catch (error) {

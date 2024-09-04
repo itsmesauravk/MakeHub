@@ -10,6 +10,7 @@ const bcrypt = require('bcrypt');
 const updateProfile = async (req, res) => {
     try {
         const {username, bio} = req.body;
+        console.log(username, bio)
 
         const token = req.headers.authorization.split(" ")[1];
 
@@ -19,11 +20,15 @@ const updateProfile = async (req, res) => {
 
         const userId = decoded.id;
 
-        const image = req.file.path;
+
+        
+
+        const image = req?.file?.path;
        
 
 
         const user = await User.findById(userId);
+        
 
         if(!user) return res.status(400).json({success:false, message:"Unauthorized"});
 

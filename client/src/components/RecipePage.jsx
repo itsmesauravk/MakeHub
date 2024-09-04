@@ -25,6 +25,7 @@ import StarIcon from "@mui/icons-material/Star"
 import Avatar from "@mui/material/Avatar"
 import Stack from "@mui/material/Stack"
 import { LoginContext } from "./LoginContext"
+import RecipeShare from "./RecipeShare"
 
 // for login checking
 
@@ -119,6 +120,9 @@ const RecipePage = ({ recipe, user }) => {
       const data = await response.json()
       if (data.success) {
         toast.success(data.message)
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
       } else {
         toast.error(data.message)
       }
@@ -150,6 +154,9 @@ const RecipePage = ({ recipe, user }) => {
       const data = await response.json()
       if (data.success) {
         toast.success(data.message)
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
       } else {
         toast.error(data.message)
       }
@@ -199,6 +206,8 @@ const RecipePage = ({ recipe, user }) => {
       setCommentLoading(false)
     }
   }
+
+  const recipeUrl = `${window.location.origin}/recipe/${recipe.slug}`
 
   return (
     <div className="w-full px-4 py-6 max-w-full mx-auto bg-white">
@@ -369,6 +378,7 @@ const RecipePage = ({ recipe, user }) => {
               <p className="text-gray-600">{user?.email}</p>
             </div>
           </Link>
+          <RecipeShare recipeUrl={recipeUrl} recipeTitle={recipe.title} />
         </div>
       </div>
 

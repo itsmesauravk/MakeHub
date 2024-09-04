@@ -53,6 +53,9 @@ const recipeSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
     }],
+    likeCounts:{
+        type:Number
+    },
     saved:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'

@@ -58,7 +58,7 @@ const RecipeCard = ({ loading, recipeDetails }) => {
                 </p>
                 <p className="flex items-center text-gray-600 font-bold">
                   <FaRegHeart className="mr-1 text-primary" />
-                  {recipeDetails?.likes ? recipeDetails?.likes.length : 0}
+                  {recipeDetails?.likeCounts ? recipeDetails?.likeCounts : 0}
                 </p>
                 <p className="flex items-center text-gray-600 font-bold">
                   <TfiCommentAlt className="mr-1 text-primary" />

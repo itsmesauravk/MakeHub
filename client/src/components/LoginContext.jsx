@@ -7,18 +7,13 @@ const LoginProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userBasicInfo, setUserBasicInfo] = useState({})
 
-  console.log(window.location.pathname)
-  if (isLoggedIn && window.location.pathname === "/login") {
-    window.location.href = "/"
-  } else if (isLoggedIn && window.location.pathname === "/signup") {
-    window.location.href = "/"
-  }
-
-  console.log("Login Context :")
-  console.log("Is Logged In: ", isLoggedIn)
-  console.log("User Basic Info: ", userBasicInfo)
-
-  console.log("ck", document.cookie)
+  setTimeout(() => {
+    if (isLoggedIn && window.location.pathname === "/login") {
+      window.location.href = "/"
+    } else if (isLoggedIn && window.location.pathname === "/signup") {
+      window.location.href = "/"
+    }
+  }, 1000)
 
   useEffect(() => {
     const fetchUserInfo = async () => {

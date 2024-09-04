@@ -32,9 +32,9 @@ const getAllRecipes = async (req, res) => {
         } else if (sort === 'oldest') {
             sortOption = { createdAt: 1 };
         }else if (sort === 'high-low') {
-          sortOption = { likes: -1 };
+          sortOption = { likeCounts: -1 };
         }else if (sort === 'low-high') {
-            sortOption = { likes: 1 };
+            sortOption = { likeCounts: 1 };
           }
       }
   
