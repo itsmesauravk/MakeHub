@@ -5,6 +5,12 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
+const http = require('http');
+
+
+
+
+
 // Middleware
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -22,7 +28,8 @@ app.use(cookieParser());
 const userRoutes = require('./routes/user.routes');
 const recipeRoutes = require('./routes/recipe.routes');
 
-const authRoutes = require('./auth/authRoutes')
+const authRoutes = require('./auth/authRoutes');
+const { create } = require('./models/user.models');
 
 app.use('/',authRoutes)
 app.use('/api', userRoutes);
@@ -36,6 +43,9 @@ app.use('/api/recipe', recipeRoutes);
  app.get('/api/healthcheck', (req, res) => {
     res.send('I am alive');
     });
+
+
+ 
 
 
 

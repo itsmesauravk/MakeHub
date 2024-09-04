@@ -48,7 +48,7 @@ router.get('/auth/google/callback', async (req, res) => {
 
     if(user){
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_SECRET_EXPIRY });
-      res.redirect(`${process.env.CLIENT_URL}/auth/success?token=${token}`);
+      return res.redirect(`${process.env.CLIENT_URL}/auth/success?token=${token}`);
     }
 
     

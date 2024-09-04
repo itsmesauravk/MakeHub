@@ -12,6 +12,8 @@ const forgotPassword = require('./sub-controller/forgotpassword.controller');
 
 const {verifyResetToken,resendOTP, resetPassword} = require('./sub-controller/verifyTokens.controller')
 
+const {getUsers,foundUsers} = require('./sub-controller/finduser.controller')
+
 
 
 module.exports = {
@@ -26,5 +28,7 @@ module.exports = {
     forgotPassword,
     verifyResetToken,
     resetPassword,
-    resendOTP
+    resendOTP,
+    getUsers,
+    foundUsers
 }

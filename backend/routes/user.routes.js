@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express.Router();
 
@@ -6,7 +7,8 @@ const { login, register, userInfo, userProfile, inspectUser,
     updateProfile, updatePrivacy,
     forgotPassword,
     verifyResetToken,resetPassword,
-    resendOTP
+    resendOTP,
+    getUsers, foundUsers
 
  } = require('../controllers/User/index');
 const uploader = require('../Utils/multer');
@@ -40,6 +42,13 @@ router.post('/reset-password', resetPassword);
 
 //resend OTP
 router.post('/resend-otp', resendOTP);
+
+
+//find users
+router.get('/get-popular-users', getUsers);
+
+// search users
+router.get('/find-users', foundUsers);
 
 
 module.exports = router;

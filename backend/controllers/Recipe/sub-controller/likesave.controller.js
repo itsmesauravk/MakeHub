@@ -67,6 +67,8 @@ const likeRecipe = async (req, res) => {
             res.status(200).json({success: true, message: 'Added To Likes'});
         }
 
+        sendLikeNotification(userId, recipeId);
+
         
     } catch (error) {
         console.error('Error adding like:', error);
