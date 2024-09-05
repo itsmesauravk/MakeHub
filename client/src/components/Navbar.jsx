@@ -19,6 +19,29 @@ const Navbar = () => {
   const [bgColor, setBgColor] = useState("transparent")
   const { isLoggedIn, userBasicInfo } = useContext(LoginContext)
 
+  const [countNoti, setCountNoti] = useState(0)
+
+  //getting unread notifications
+  const getUnreadNotifications = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/recipe/get-unread-notifications/${userBasicInfo?._id}`
+      )
+      const data = await response.json()
+      if (data.success) {
+        setCountNoti(data.data)
+      }
+    } catch (error) {
+      console.log("Error while fetching notifications", error)
+    }
+  }
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      getUnreadNotifications()
+    }
+  }, [])
+
   useEffect(() => {
     const handleScroll = () => {
       setBgColor(window.scrollY > 20 ? "#FBFBFB" : "transparent")
@@ -104,7 +127,11 @@ const Navbar = () => {
             to={"/notifications"}
           >
             <span className="text-secondary">
-              (<span className="font-semibold text-primary-dark ">3</span>)
+              (
+              <span className="font-semibold text-primary-dark ">
+                {countNoti || 0}
+              </span>
+              )
             </span>{" "}
             <IoNotifications className="text-2xl  animate-wiggle" />
           </Link>

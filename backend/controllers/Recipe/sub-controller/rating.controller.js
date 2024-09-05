@@ -1,6 +1,7 @@
 const Recipe = require("../../../models/recipe.models");
 const User = require("../../../models/user.models");
 const Rating = require("../../../models/reciperating.models");
+const Notification = require("../../../models/notification.model")
 
 
 
@@ -42,6 +43,17 @@ const createRating = async (req, res) => {
         if(!updateRecipeRating){
             return res.status(400).json({success: false, message: 'Rating not updated'});
         }
+
+              // Create notification
+              const notification = new Notification({
+                type: 'comment',
+                sender: userId,
+                receiver: updateRecipeRating.userId,
+                recipe: recipeId,
+                message: `commented "${comment}" on your recipe `,
+            });
+            
+            await notification.save();
 
         res.status(200).json({success: true, message: 'Rating created successfully', data: userRating});
 

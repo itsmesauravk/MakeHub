@@ -8,7 +8,8 @@ const {createRecipe,getRecipes,getRecipeForUser, getRecipeFromSlug, getAllRecipe
     search,
     basicStats,
     getNotifications,
-    markAsRead
+    markAsRead,
+    getUnreadNotifications
 } = require('../controllers/Recipe/index');
 
 
@@ -49,5 +50,7 @@ router.get('/basic-stats', basicStats);
 router.get('/all-notifications/:userId', getNotifications)
 
 router.post('/mark-as-read/:userId', markAsRead)
+
+router.get('/get-unread-notifications/:userId',  getUnreadNotifications)
 
 module.exports = router;

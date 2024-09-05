@@ -2,6 +2,7 @@ const Recipe = require('../../../models/recipe.models')
 const User = require('../../../models/user.models')
 const slug = require('slug')
 const { uploadFile } = require('../../../Utils/fileUpload')
+const Notification = require('../../../models/notification.model')
 
 //create
 const createRecipe = async (req, res) => {
@@ -75,6 +76,20 @@ const createRecipe = async (req, res) => {
     }
     user.recipesPosted.push(recipe._id);
     await user.save();
+
+
+    user.followers.forEach(async (follower)=>{
+      // Create notification
+    const notification = new Notification({
+      type: 'newRecipe',
+      sender: userId,
+      receiver: follower,
+      recipe: newRecipe._id,
+      message: `${userId} added new recipe recipe ${newRecipe.title}`,
+      });
+      await notification.save();
+    })
+  
 
     return res.status(200).json({ success: true, message: "Recipe created successfully", recipe });
   } catch (error) {

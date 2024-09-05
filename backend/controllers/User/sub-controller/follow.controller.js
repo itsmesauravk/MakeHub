@@ -1,4 +1,5 @@
 const User = require('../../../models/user.models');
+const Notification = require('../../../models/notification.model');
 
 
 
@@ -24,6 +25,17 @@ const followController = async (req, res) => {
             // Follow the user
             const updatedUser = await User.findByIdAndUpdate(userId, {$push: {following: followId}}, {new: true});
             const updatedFollowUser = await User.findByIdAndUpdate(followId, {$push: {followers: userId}}, {new: true});
+
+            const notification = new Notification({
+                type: 'follow',
+                sender: userId,
+                receiver: followId,
+                message: `${updatedUser.username} started following you`,
+            });
+            
+            await notification.save();
+
+
             return res.status(200).json({success:true, message:"Following"});
         }
         
