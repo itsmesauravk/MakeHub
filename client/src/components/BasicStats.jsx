@@ -51,7 +51,7 @@ const BasicStats = () => {
                   <BiSolidFoodMenu className="text-primary-dark w-10 h-10" />
                   <h2 class="title-font font-medium text-3xl text-gray-900">
                     {statsCount ? (
-                      <span>{statsCount.totalRecipes - 1}+</span>
+                      <span>{statsCount?.totalRecipes - 1}+</span>
                     ) : (
                       0
                     )}
@@ -65,7 +65,11 @@ const BasicStats = () => {
                 <div class="flex flex-col justify-center items-center gap-3 border-2 border-gray-200 px-4 py-6 rounded-lg">
                   <FaUsers className="text-primary-dark w-10 h-10" />
                   <h2 class="title-font font-medium text-3xl text-gray-900">
-                    {statsCount ? <span>{statsCount.totalUsers - 1}+</span> : 0}
+                    {statsCount ? (
+                      <span>{statsCount?.totalUsers - 1}+</span>
+                    ) : (
+                      0
+                    )}
                   </h2>
                   <p class="leading-relaxed">Users</p>
                 </div>
@@ -76,7 +80,11 @@ const BasicStats = () => {
                 <div class="flex flex-col justify-center items-center gap-3 border-2 border-gray-200 px-4 py-6 rounded-lg">
                   <IoFastFood className="text-primary-dark w-10 h-10" />
                   <h2 class="title-font font-medium text-3xl text-gray-900">
-                    {statsCount ? <span>{statsCount.totalTypes - 1}+</span> : 0}
+                    {statsCount ? (
+                      <span>{statsCount?.totalTypes - 1}+</span>
+                    ) : (
+                      0
+                    )}
                   </h2>
                   <p class="leading-relaxed">Types</p>
                 </div>
@@ -89,7 +97,7 @@ const BasicStats = () => {
 
                   <h2 class="title-font font-medium text-3xl text-gray-900">
                     {statsCount ? (
-                      <span>{statsCount.totalCategories - 1}+</span>
+                      <span>{statsCount?.totalCategories - 1}+</span>
                     ) : (
                       0
                     )}

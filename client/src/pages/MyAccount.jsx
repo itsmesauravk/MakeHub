@@ -33,6 +33,7 @@ const MyAccount = () => {
 
   const [profileLoading, setProfileLoading] = useState(false)
   const [recipeLoading, setRecipeLoading] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
 
   const { userBasicInfo } = useContext(LoginContext)
 
@@ -115,6 +116,48 @@ const MyAccount = () => {
     }
   }
 
+  //delete recipe
+  const deleteRecipe = async (e, recipeId) => {
+    e.preventDefault()
+
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this recipe?"
+    )
+    if (!confirmDelete) return
+
+    try {
+      setDeleteLoading(true)
+
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/recipe/delete-recipe/${recipeId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+
+      const data = await response.json()
+      console.log(data)
+
+      if (data.success) {
+        toast.success(data.message || "Recipe deleted successfully")
+        getRecipes("my-recipes")
+        setDeleteLoading(false)
+      } else {
+        toast.error(data.message || "Failed to delete recipe")
+        setDeleteLoading(false)
+      }
+    } catch (error) {
+      toast.error("An error occurred while deleting the recipe.")
+      setDeleteLoading(false)
+    } finally {
+      setDeleteLoading(false)
+    }
+  }
+
   useEffect(() => {
     getUserProfile()
 
@@ -138,7 +181,7 @@ const MyAccount = () => {
               <Spinner
                 width={"25px"}
                 height={"25px"}
-                color={"#f3043a"}
+                backgroundColor={"#f3043a"}
                 padding={"3px"}
               />
             ) : (
@@ -248,7 +291,7 @@ const MyAccount = () => {
                     <Spinner
                       width={"18px"}
                       height={"18px"}
-                      color={"#f3043a"}
+                      backgroundColor={"#f3043a"}
                       padding={"2px"}
                     />
                   )}
@@ -275,8 +318,9 @@ const MyAccount = () => {
                           <Tooltip title="Delete" arrow>
                             <button
                               className="absolute top-2 right-2 bg-white p-3 rounded-full shadow-md "
-                              onClick={() => {
-                                toast.success(recipe._id)
+                              disabled={deleteLoading}
+                              onClick={(e) => {
+                                deleteRecipe(e, recipe._id)
                               }}
                             >
                               <MdDelete className="text-primary hover:text-red-600" />

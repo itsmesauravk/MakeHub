@@ -37,7 +37,7 @@ const Navbar = () => {
   }
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (userBasicInfo?._id) {
       getUnreadNotifications()
     }
   }, [])
@@ -127,11 +127,13 @@ const Navbar = () => {
             to={"/notifications"}
           >
             <span className="text-secondary">
-              (
-              <span className="font-semibold text-primary-dark ">
-                {countNoti || 0}
-              </span>
-              )
+              {countNoti && countNoti > 0 ? (
+                <span className="font-semibold text-primary-dark ">
+                  ({countNoti || 0})
+                </span>
+              ) : (
+                ""
+              )}
             </span>{" "}
             <IoNotifications className="text-2xl  animate-wiggle" />
           </Link>

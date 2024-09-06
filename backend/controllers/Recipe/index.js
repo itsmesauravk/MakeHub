@@ -12,6 +12,8 @@ const basicStats = require('./sub-controller/basicstats.controller')
 
 const {getNotifications, markAsRead, getUnreadNotifications} = require('./sub-controller/notification.controller')
 
+const deleteRecipe = require('./sub-controller/delete.controller')
+
 
 
 module.exports = {
@@ -27,5 +29,6 @@ module.exports = {
     basicStats,
     getNotifications,
     markAsRead,
-    getUnreadNotifications
+    getUnreadNotifications,
+    deleteRecipe
 }

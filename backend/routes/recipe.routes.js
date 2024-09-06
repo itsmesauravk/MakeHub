@@ -3,13 +3,20 @@ const router = express.Router();
 
 const uploader = require('../Utils/multer');
 
+//middleware
+const auth = require("../middleware/auth.middleware")
+
+
+//controllers
+
 const {createRecipe,getRecipes,getRecipeForUser, getRecipeFromSlug, getAllRecipes,
     createRating, likeRecipe,saveRecipe,
     search,
     basicStats,
     getNotifications,
     markAsRead,
-    getUnreadNotifications
+    getUnreadNotifications,
+    deleteRecipe
 } = require('../controllers/Recipe/index');
 
 
@@ -52,5 +59,8 @@ router.get('/all-notifications/:userId', getNotifications)
 router.post('/mark-as-read/:userId', markAsRead)
 
 router.get('/get-unread-notifications/:userId',  getUnreadNotifications)
+
+//delete recipe
+router.delete('/delete-recipe/:id',auth ,deleteRecipe);
 
 module.exports = router;
