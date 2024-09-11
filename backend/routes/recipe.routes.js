@@ -16,7 +16,9 @@ const {createRecipe,getRecipes,getRecipeForUser, getRecipeFromSlug, getAllRecipe
     getNotifications,
     markAsRead,
     getUnreadNotifications,
-    deleteRecipe
+    deleteRecipe,
+    getOneRecipe,
+    editRecipe
 } = require('../controllers/Recipe/index');
 
 
@@ -62,5 +64,11 @@ router.get('/get-unread-notifications/:userId',  getUnreadNotifications)
 
 //delete recipe
 router.delete('/delete-recipe/:id',auth ,deleteRecipe);
+
+//get single recipe
+router.get('/get-one-recipe/:slug', getOneRecipe);
+
+//edit recipe
+router.patch('/edit-recipe/:slug',auth, editRecipe);
 
 module.exports = router;

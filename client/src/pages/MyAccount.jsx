@@ -306,14 +306,15 @@ const MyAccount = () => {
                         <div key={recipe._id} className="relative">
                           <RecipeCard recipeDetails={recipe} />
                           <Tooltip title="Edit" arrow>
-                            <button
+                            <Link
+                              to={`/edit-recipe/${recipe.slug}`}
                               className="absolute top-2 right-14 bg-white p-3 rounded-full shadow-md "
                               onClick={() => {
-                                toast.success(recipe._id)
+                                toast.success(recipe.slug)
                               }}
                             >
                               <MdModeEdit className="text-primary hover:text-blue-600" />
-                            </button>
+                            </Link>
                           </Tooltip>
                           <Tooltip title="Delete" arrow>
                             <button

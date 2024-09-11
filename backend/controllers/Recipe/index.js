@@ -14,6 +14,9 @@ const {getNotifications, markAsRead, getUnreadNotifications} = require('./sub-co
 
 const deleteRecipe = require('./sub-controller/delete.controller')
 
+const getOneRecipe = require('./sub-controller/getSingleRecipe.controller')
+const editRecipe = require('./sub-controller/editRecipe.controller')
+
 
 
 module.exports = {
@@ -30,5 +33,7 @@ module.exports = {
     getNotifications,
     markAsRead,
     getUnreadNotifications,
-    deleteRecipe
+    deleteRecipe,
+    getOneRecipe,
+    editRecipe
 }

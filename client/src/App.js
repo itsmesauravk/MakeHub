@@ -17,6 +17,7 @@ import EmailVerification from './pages/OtpVerification';
 import AuthSuccess from './pages/AuthSuccess';
 import Notification from './pages/Notification';
 import FindUser from './pages/FindUser';
+import EditRecipe from './pages/EditRecipe';
 
 
 
@@ -38,6 +39,7 @@ function App() {
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/notifications' element={<Notification />} />
         <Route path='/find-users' element={<FindUser />} />
+        <Route path='/edit-recipe/:slug' element={<EditRecipe />} />
 
         <Route path='/auth/success' element={<AuthSuccess />} />
 
