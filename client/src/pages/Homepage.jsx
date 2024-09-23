@@ -6,6 +6,7 @@ import Transition from "../components/Transition"
 import PopularRecipe from "../components/PopularRecipe"
 import MostLiked from "../components/MostLiked"
 import BasicStats from "../components/BasicStats"
+import ChatBot from "../components/ChatBot"
 
 const Homepage = () => {
   const [data, setData] = useState([])
@@ -99,6 +100,7 @@ const Homepage = () => {
 
         {/* most liked  */}
         <MostLiked />
+        <ChatBot />
       </div>
 
       <Footer />

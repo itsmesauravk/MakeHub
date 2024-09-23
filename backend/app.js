@@ -27,13 +27,16 @@ app.use(cookieParser());
 
 const userRoutes = require('./routes/user.routes');
 const recipeRoutes = require('./routes/recipe.routes');
+const botRoutes = require('./routes/bot.routes');
 
 const authRoutes = require('./auth/authRoutes');
 const { create } = require('./models/user.models');
 
+
 app.use('/',authRoutes)
 app.use('/api', userRoutes);
 app.use('/api/recipe', recipeRoutes);
+app.use('/api', botRoutes);
 
 
 
