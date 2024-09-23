@@ -12,6 +12,16 @@ const ChatBot = () => {
   const botRef = useRef(null)
   const [loading, setLoading] = useState(false)
 
+  // Ref for the chat container to scroll to the latest message
+  const messagesEndRef = useRef(null)
+
+  // Scroll to the bottom when messages or loading state change
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+  }, [messages, loading])
+
   // Toggle chat window open/close
   const toggleChat = () => {
     setIsOpen(!isOpen)
@@ -107,7 +117,7 @@ const ChatBot = () => {
 
   return (
     <>
-      <div className="fixed bottom-14 right-32 z-50">
+      <div className="fixed bottom-14 right-8 md:right-32 z-50">
         <button
           ref={botRef}
           onClick={toggleChat}
@@ -118,7 +128,7 @@ const ChatBot = () => {
       </div>
 
       {isOpen && (
-        <div className="fixed bottom-32 right-8 w-[40rem] h-[40rem] bg-white rounded-lg shadow-lg p-4 z-50">
+        <div className="fixed bottom-24 right-4 md:bottom-32 md:right-8 w-full max-w-[90%] md:max-w-[40rem] h-[30rem] md:h-[40rem] bg-white rounded-lg shadow-lg p-4 z-50">
           <div className="flex flex-col h-full">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold">Chatbot</h2>
@@ -129,6 +139,9 @@ const ChatBot = () => {
             </div>
 
             <div className="flex-1 overflow-y-auto">
+              <p className="font-semibold text-secondary">
+                Ask me, I can help you prepare your Recipe!
+              </p>
               {messages.map((msg, index) => (
                 <p
                   key={index}
@@ -140,6 +153,9 @@ const ChatBot = () => {
                   dangerouslySetInnerHTML={{ __html: msg.content }}
                 />
               ))}
+
+              {/* Reference for the last message */}
+              <div ref={messagesEndRef} />
 
               {/* Display "Loading..." message when waiting for bot response */}
               {loading && (
