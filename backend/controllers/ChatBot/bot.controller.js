@@ -9,19 +9,19 @@ const chatbot = async (req, res) => {
       return res.status(400).json({ error: "Message not provided" });
     }
 
-    const genAI = new GoogleGenerativeAI(API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const genAI = new GoogleGenerativeAI(API_KEY); // Use environment variable
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" }); // Consider using gemini-pro for more complex interactions
 
-    const result = await model.generateContent(userMessage);
-    const botReply = result.response.text();  
+    const systemPrompt = "Only respond to questions about food, recipes, drinks, and fruits. If the question is outside these topics, reply: 'I can only discuss food-related topics.'"
 
-    // Get the generated text from the response
-    const botMessage = botReply || 'Sorry, I could not generate a response.';
+    const result = await model.generateContent([systemPrompt, userMessage]);
+    const botReply = await result.response.text();
 
-    // Respond with the generated content
-    return res.status(200).json({ message: botMessage });
+    return res.status(200).json({ 
+      message: botReply || 'Sorry, I could not generate a response.' 
+    });
   } catch (error) {
-    console.error("Error generating content:", error);
+    console.error("Chatbot error:", error);
     return res.status(500).json({ error: "Failed to generate content" });
   }
 };

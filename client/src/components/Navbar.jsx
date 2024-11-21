@@ -83,15 +83,18 @@ const Navbar = () => {
 
   return (
     <nav
-      className="navbar fixed top-0 left-0 w-full z-10 flex justify-between items-center px-16 py-4 bg-opacity-90"
+      className="navbar fixed top-0 left-0 w-full z-10 flex justify-between items-center px-4 py-2 md:px-16 md:py-4 bg-opacity-90"
       style={{
         backgroundColor: bgColor,
         transition: "background-color 0.3s ease",
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
       }}
     >
+      {/* Logo */}
       <Logo />
-      <div className="navbar-links flex space-x-6 text-secondary">
+
+      {/* Links for larger screens */}
+      <div className="hidden md:flex space-x-6 text-secondary">
         <Link
           to="/"
           className="font-semibold hover:text-primary transition-colors"
@@ -119,11 +122,12 @@ const Navbar = () => {
         </Link>
       </div>
 
+      {/* Right Section with Avatar, Notifications, and Find User */}
       <div className="flex items-center gap-4">
-        {/* notification  */}
+        {/* Notification */}
         <Tooltip title="Notifications" arrow>
           <Link
-            className="flex gap-1 p-1 rounded-md  hover:text-primary-dark"
+            className="flex gap-1 p-1 rounded-md hover:text-primary-dark"
             to={"/notifications"}
           >
             <span className="text-secondary">
@@ -135,16 +139,17 @@ const Navbar = () => {
                 ""
               )}
             </span>{" "}
-            <IoNotifications className="text-2xl  animate-wiggle" />
+            <IoNotifications className="text-2xl animate-wiggle" />
           </Link>
         </Tooltip>
-        {/* find user  */}
+
+        {/* Find User */}
         <Tooltip title="Find Users" arrow>
           <Link
-            className="flex gap-1 p-1 rounded-md  hover:text-primary-dark"
+            className="flex gap-1 p-1 rounded-md hover:text-primary-dark"
             to={"/find-users"}
           >
-            <RiUserSearchFill className="text-2xl  " />
+            <RiUserSearchFill className="text-2xl" />
           </Link>
         </Tooltip>
 
@@ -168,8 +173,7 @@ const Navbar = () => {
                   />
                 </Stack>
               )}
-
-              <p className="text-primary font-semibold ">
+              <p className="text-primary font-semibold">
                 {userBasicInfo?.username}
               </p>
             </Link>
@@ -182,6 +186,31 @@ const Navbar = () => {
             Log In
           </Link>
         )}
+      </div>
+
+      {/* Hamburger Menu for smaller screens */}
+      <div className="md:hidden">
+        <button
+          className="text-secondary focus:outline-none"
+          onClick={() => {
+            // toggle mobile menu
+          }}
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+        </button>
       </div>
     </nav>
   )
